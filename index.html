@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Helsinki Dating</title>
+<title>Helsinki Dating - 100% Ilmainen</title>
 <style>
 /* تجميد الصفحة باش مايكونش السكرول نهائيا */
 html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; background: #000; }
@@ -19,7 +19,7 @@ html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; background: 
 }
 
 #main {
-    display: none; /* كيتبدل لـ flex في السكريبت */
+    display: none; 
     height: 100%;
     flex-direction: column;
     background: #111;
@@ -27,41 +27,38 @@ html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; background: 
     overflow: hidden;
 }
 
-/* هادي هي اللي كتدير الخدمة: كتاخد كاع المساحة اللي بقات */
 .hero-image { 
     width: 100%; 
     flex: 1; 
-    min-height: 0; /* ضرورية باش الصورة تقبل تكمش */
+    min-height: 0; 
     background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168-rw/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg');
     background-size: cover;
     background-position: center 15%; 
     border-bottom: 3px solid #ff4444;
 }
 
-/* جمعنا هادشي باش نربحو المساحة للزر */
 .content-area {
-    padding: 5px 10px 10px 10px;
-    flex-shrink: 0; /* باش هاد الجزء مايتكمش وا يبان ديما */
+    padding: 10px;
+    flex-shrink: 0; /* كتحمي هاد الجزء ما يتكمش */
 }
 
-h1{color:#ff4444;font-size:1.2rem;margin:5px 0}
-p{color:#aaa;font-size:.75rem;margin-bottom:5px}
-.stats{background:#000;padding:5px;border-radius:8px;margin-bottom:5px}
-.stat{display:flex;justify-content:space-between;margin:2px 0;font-size:.7rem}
+h1{color:#ff4444;font-size:1.4rem;margin-bottom:5px}
+p{color:#aaa;font-size:.85rem;margin-bottom:10px}
+.stats{background:#000;padding:10px;border-radius:8px;margin:10px 0}
+.stat{display:flex;justify-content:space-between;margin:5px 0;font-size:.8rem}
 .value{color:#0f0;font-weight:bold}
 
 button.pulse-btn {
-    background:#ff4444; color:#fff; border:none; padding:12px; font-size:1.1rem; border-radius:8px; cursor:pointer; width:100%; font-weight:bold; animation: pulse-red 1.5s infinite;
+    background:#ff4444; color:#fff; border:none; padding:15px; font-size:1.1rem; border-radius:8px; cursor:pointer; margin:10px 0; width:100%; font-weight:bold; animation: pulse-red 1.5s infinite;
 }
 
 @keyframes pulse-red {
     0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7); }
-    70% { transform: scale(1.03); box-shadow: 0 0 0 8px rgba(255, 68, 68, 0); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 68, 68, 0); }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
 }
 
-.badge{display:inline-block;background:#222;padding:3px 7px;margin:2px;border-radius:4px;font-size:.6rem}
-
+.badge{display:inline-block;background:#222;padding:5px 10px;margin:5px;border-radius:4px;font-size:.7rem}
 #gate { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 </style>
 </head>
@@ -70,7 +67,7 @@ button.pulse-btn {
 
 <div id="gate">
     <h1 style="font-size:3rem">🔞</h1>
-    <h1 style="color:#ff4444">Ikätarkistus</h1>
+    <h1>Ikätarkistus</h1>
     <p>Sinun täytyy olla yli 18-vuotias jatkaaksesi</p>
     <button class="pulse-btn" onclick="showMain()" style="width: 80%;">Kyllä, olen 18+</button>
 </div>
@@ -80,18 +77,19 @@ button.pulse-btn {
     
     <div class="content-area">
         <h1>Helsinki <span style="color:#fff">Deittailu</span></h1>
-        <p>100% ilmainen rekisteröityminen</p>
+        <p>100% ilmainen rekisteröityminen – Löydä rakkaus tänään!</p>
         
         <div class="stats">
-            <div class="stat"><span>Aktiivisia naisia:</span><span class="value">32</span></div>
-            <div class="stat"><span>Uusia jäseniä:</span><span class="value">+127</span></div>
+            <div class="stat"><span>Aktiivisia naisia nyt:</span><span class="value">32</span></div>
+            <div class="stat"><span>Uusia jäseniä tänään:</span><span class="value">+127</span></div>
+            <div class="stat"><span>Viestejä tällä viikolla:</span><span class="value">8,492</span></div>
         </div>
         
         <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" style="text-decoration:none;">
             <button class="pulse-btn">Aloita ilmainen haku!</button>
         </a>
         
-        <div style="margin-top:5px">
+        <div>
             <span class="badge">🔒 Turvallinen</span>
             <span class="badge">✓ Vahvistettu</span>
             <span class="badge">🇫🇮 Paikallinen</span>
