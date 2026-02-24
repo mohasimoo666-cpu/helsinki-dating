@@ -1,111 +1,563 @@
 <!DOCTYPE html>
-<html>
+<html lang="fi">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Helsinki Dating</title>
+<title>Helsinki Treffit – Löydä seuraa tänään</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* تجميد الصفحة باش مايكونش السكرول نهائيا */
-html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; background: #000; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-.container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 5px;
-    box-sizing: border-box;
+:root {
+  --red: #e82c2c;
+  --red-dark: #b81c1c;
+  --red-glow: rgba(232, 44, 44, 0.45);
+  --gold: #f5c842;
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #1a1a1a;
+  --text: #f0ece4;
+  --muted: #888;
+  --green: #22c55e;
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+}
+
+/* ═══════════════════════════════
+   AGE GATE
+═══════════════════════════════ */
+#gate {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 30px;
+  text-align: center;
+  gap: 18px;
+}
+
+.gate-icon {
+  font-size: 4rem;
+  filter: drop-shadow(0 0 20px var(--red-glow));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.gate-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.gate-title span { color: var(--red); }
+
+.gate-sub {
+  color: var(--muted);
+  font-size: 0.85rem;
+  max-width: 260px;
+}
+
+.gate-btn {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  padding: 16px 40px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  border-radius: 50px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s;
+  animation: pulse-gate 2s infinite;
+}
+
+.gate-btn:active { transform: scale(0.97); }
+
+.gate-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+}
+
+@keyframes pulse-gate {
+  0%, 100% { box-shadow: 0 0 0 0 var(--red-glow); }
+  50% { box-shadow: 0 0 0 12px transparent; }
+}
+
+.gate-disclaimer {
+  font-size: 0.65rem;
+  color: #555;
+  max-width: 240px;
+}
+
+/* ═══════════════════════════════
+   MAIN PAGE
+═══════════════════════════════ */
 #main {
-    display: none; /* كيتبدل لـ flex في السكريبت */
-    height: 100%;
-    flex-direction: column;
-    background: #111;
-    border-radius: 12px;
-    overflow: hidden;
+  display: none;
+  height: 100%;
+  flex-direction: column;
+  max-width: 420px;
+  margin: 0 auto;
+  position: relative;
 }
 
-/* هادي هي اللي كتدير الخدمة: كتاخد كاع المساحة اللي بقات */
-.hero-image { 
-    width: 100%; 
-    flex: 1; 
-    min-height: 0; /* ضرورية باش الصورة تقبل تكمش */
-    background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168-rw/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg');
-    background-size: cover;
-    background-position: center 15%; 
-    border-bottom: 3px solid #ff4444;
+/* HERO */
+.hero {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
 }
 
-/* جمعنا هادشي باش نربحو المساحة للزر */
-.content-area {
-    padding: 5px 10px 10px 10px;
-    flex-shrink: 0; /* باش هاد الجزء مايتكمش وا يبان ديما */
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+  display: block;
 }
 
-h1{color:#ff4444;font-size:1.2rem;margin:5px 0}
-p{color:#aaa;font-size:.75rem;margin-bottom:5px}
-.stats{background:#000;padding:5px;border-radius:8px;margin-bottom:5px}
-.stat{display:flex;justify-content:space-between;margin:2px 0;font-size:.7rem}
-.value{color:#0f0;font-weight:bold}
-
-button.pulse-btn {
-    background:#ff4444; color:#fff; border:none; padding:12px; font-size:1.1rem; border-radius:8px; cursor:pointer; width:100%; font-weight:bold; animation: pulse-red 1.5s infinite;
+/* gradient overlay */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(10,10,10,0.3) 60%,
+    rgba(10,10,10,0.85) 85%,
+    #0a0a0a 100%
+  );
 }
 
-@keyframes pulse-red {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7); }
-    70% { transform: scale(1.03); box-shadow: 0 0 0 8px rgba(255, 68, 68, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
+/* ONLINE BADGE */
+.online-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text);
 }
 
-.badge{display:inline-block;background:#222;padding:3px 7px;margin:2px;border-radius:4px;font-size:.6rem}
+.dot-live {
+  width: 8px;
+  height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: blink 1.2s infinite;
+}
 
-#gate { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* PROFILE STRIP on hero bottom */
+.profile-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  padding: 14px 16px 8px;
+}
+
+.profile-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+  line-height: 1;
+}
+
+.profile-meta {
+  font-size: 0.72rem;
+  color: rgba(240,236,228,0.75);
+  margin-top: 3px;
+}
+
+/* CONTENT AREA */
+.content {
+  flex-shrink: 0;
+  background: #0a0a0a;
+  padding: 12px 14px 16px;
+}
+
+/* STATS ROW */
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.stat-label {
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 3px;
+}
+
+.stat-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--green);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-sub {
+  font-size: 0.6rem;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+/* SOCIAL PROOF */
+.proof-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.avatars {
+  display: flex;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #0a0a0a;
+  margin-right: -8px;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  overflow: hidden;
+}
+
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.proof-text {
+  font-size: 0.7rem;
+  color: var(--muted);
+  flex: 1;
+}
+
+.proof-text strong { color: var(--text); }
+
+.stars {
+  color: var(--gold);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+
+/* CTA BUTTON */
+.cta-btn {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+  color: #fff;
+  border: none;
+  padding: 16px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  border-radius: 12px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  animation: pulse-cta 1.8s infinite;
+  margin-bottom: 10px;
+}
+
+.cta-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  animation: shimmer 2.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+@keyframes pulse-cta {
+  0%, 100% { box-shadow: 0 4px 20px var(--red-glow); }
+  50% { box-shadow: 0 4px 35px rgba(232,44,44,0.7); }
+}
+
+.cta-sub {
+  text-align: center;
+  font-size: 0.65rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* TRUST BADGES */
+.badges {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.07);
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: 0.62rem;
+  color: #999;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ═══════════════════════════════
+   NOTIFICATION POPUP
+═══════════════════════════════ */
+.notif {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--surface2);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-left: 3px solid var(--red);
+  border-radius: 10px;
+  padding: 10px 14px;
+  max-width: 320px;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.72rem;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 50;
+  pointer-events: none;
+}
+
+.notif.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.notif-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--surface);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notif-name { font-weight: 600; color: var(--text); }
+.notif-action { color: var(--muted); }
+.notif-time { color: var(--red); font-size: 0.6rem; margin-top: 1px; }
 </style>
 </head>
 <body>
-<div class="container">
 
+<!-- ══════════════ AGE GATE ══════════════ -->
 <div id="gate">
-    <h1 style="font-size:3rem">🔞</h1>
-    <h1 style="color:#ff4444">Ikätarkistus</h1>
-    <p>Sinun täytyy olla yli 18-vuotias jatkaaksesi</p>
-    <button class="pulse-btn" onclick="showMain()" style="width: 80%;">Kyllä, olen 18+</button>
+  <div class="gate-icon">🔞</div>
+  <h1 class="gate-title">Tervetuloa<br><span>Helsinki Treffit</span></h1>
+  <p class="gate-sub">Tämä sivusto sisältää aikuisille tarkoitettua sisältöä</p>
+  <button class="gate-btn" onclick="showMain()">✓ &nbsp;Olen yli 18-vuotias</button>
+  <p class="gate-disclaimer">Jatkamalla vahvistat olevasi yli 18-vuotias ja hyväksyt käyttöehdot</p>
 </div>
 
+<!-- ══════════════ MAIN ══════════════ -->
 <div id="main">
-    <div class="hero-image"></div>
-    
-    <div class="content-area">
-        <h1>Helsinki <span style="color:#fff">Deittailu</span></h1>
-        <p>100% ilmainen rekisteröityminen</p>
-        
-        <div class="stats">
-            <div class="stat"><span>Aktiivisia naisia:</span><span class="value">32</span></div>
-            <div class="stat"><span>Uusia jäseniä:</span><span class="value">+127</span></div>
-        </div>
-        
-        <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" style="text-decoration:none;">
-            <button class="pulse-btn">Aloita ilmainen haku!</button>
-        </a>
-        
-        <div style="margin-top:5px">
-            <span class="badge">🔒 Turvallinen</span>
-            <span class="badge">✓ Vahvistettu</span>
-            <span class="badge">🇫🇮 Paikallinen</span>
-        </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img class="hero-img"
+      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168-rw/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg"
+      alt="Profile">
+
+    <div class="hero-overlay"></div>
+
+    <div class="online-badge">
+      <div class="dot-live"></div>
+      Aktiivinen nyt
     </div>
+
+    <div class="profile-strip">
+      <div class="profile-name">Katariina, 26</div>
+      <div class="profile-meta">📍 Helsinki · Etsii seuraa</div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Aktiivisia naisia</div>
+        <div class="stat-value" id="stat1">34</div>
+        <div class="stat-sub">Helsingin alueella</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Uusia jäseniä tänään</div>
+        <div class="stat-value" id="stat2">+143</div>
+        <div class="stat-sub">Viimeisen 24h aikana</div>
+      </div>
+    </div>
+
+    <!-- SOCIAL PROOF -->
+    <div class="proof-row">
+      <div class="avatars">
+        <div class="avatar">👩</div>
+        <div class="avatar">👱‍♀️</div>
+        <div class="avatar">👩‍🦰</div>
+        <div class="avatar" style="background:var(--red);color:#fff;font-size:0.55rem;font-weight:700;margin-right:0">+31</div>
+      </div>
+      <div class="proof-text">
+        <strong>34 naista</strong> lähellä sinua odottaa
+        <div class="stars">★★★★★ <span style="color:var(--muted)">4.8/5</span></div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" class="cta-btn" rel="noopener noreferrer">
+      💬 &nbsp;Löydä seuraa nyt – Ilmainen!
+    </a>
+
+    <p class="cta-sub">🔒 Ei luottokorttia tarvita · Rekisteröityminen kestää 30 sekuntia</p>
+
+    <!-- TRUST -->
+    <div class="badges">
+      <span class="badge">🔒 Turvallinen</span>
+      <span class="badge">✓ Vahvistetut profiilit</span>
+      <span class="badge">🇫🇮 Paikalliset naiset</span>
+      <span class="badge">⚡ Nopea vastaus</span>
+    </div>
+
+  </div>
 </div>
 
+<!-- NOTIFICATION POPUP -->
+<div class="notif" id="notif">
+  <div class="notif-avatar" id="notif-avatar">👩</div>
+  <div>
+    <div class="notif-name" id="notif-name">Emilia</div>
+    <div class="notif-action" id="notif-action">liittyi juuri palveluun</div>
+    <div class="notif-time">Juuri nyt</div>
+  </div>
 </div>
 
 <script>
-function showMain(){
-    document.getElementById('gate').style.display='none';
-    document.getElementById('main').style.display='flex';
-    window.scrollTo(0,0);
+// ── Show main after gate ──
+function showMain() {
+  document.getElementById('gate').style.display = 'none';
+  const main = document.getElementById('main');
+  main.style.display = 'flex';
+  main.style.flexDirection = 'column';
+  startNotifications();
+  animateStats();
+}
+
+// ── Animate stats on reveal ──
+function animateStats() {
+  animateCount('stat1', 28, 38, '');
+  animateCount('stat2', 120, 160, '+');
+}
+
+function animateCount(id, min, max, prefix) {
+  const el = document.getElementById(id);
+  const target = Math.floor(Math.random() * (max - min + 1)) + min;
+  let current = min;
+  const step = Math.ceil((target - min) / 20);
+  const timer = setInterval(() => {
+    current = Math.min(current + step, target);
+    el.textContent = prefix + current;
+    if (current >= target) clearInterval(timer);
+  }, 40);
+
+  // subtle drift every 8-15 seconds
+  setInterval(() => {
+    const drift = Math.floor(Math.random() * 5) - 2;
+    const val = parseInt(el.textContent.replace('+', '')) + drift;
+    el.textContent = prefix + Math.max(min - 5, val);
+  }, Math.random() * 7000 + 8000);
+}
+
+// ── Fake activity notifications ──
+const names = ['Emilia','Aino','Siiri','Liisa','Henna','Katja','Tiia','Minna','Sanna','Laura','Elina','Maija'];
+const actions = [
+  'liittyi juuri palveluun',
+  'lähetti viestin sinulle',
+  'katseli profiiliasi',
+  'on lähellä sinua',
+  'on aktiivinen nyt',
+];
+const emojis = ['👩','👱‍♀️','👩‍🦰','🧕','👩‍🦱'];
+
+function showNotif() {
+  const notif = document.getElementById('notif');
+  document.getElementById('notif-name').textContent = names[Math.floor(Math.random() * names.length)];
+  document.getElementById('notif-action').textContent = actions[Math.floor(Math.random() * actions.length)];
+  document.getElementById('notif-avatar').textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  notif.classList.add('show');
+  setTimeout(() => notif.classList.remove('show'), 3200);
+}
+
+function startNotifications() {
+  setTimeout(showNotif, 2500);
+  setInterval(() => {
+    setTimeout(showNotif, Math.random() * 3000);
+  }, 9000);
 }
 </script>
 </body>
