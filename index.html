@@ -2,54 +2,112 @@
 <html lang="fi">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Helsingin Treffit - 100% Ilmaiseksi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Helsinki Dating - Suomi</title>
     <style>
-        body { font-family: -apple-system, system-ui, Arial, sans-serif; background: #0d1117; color: #fff; margin: 0; padding: 15px; text-align: center; }
-        .container { max-width: 420px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
-        .hero-img { width: 100%; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 2px solid #30363d; object-fit: cover; }
-        h1 { font-size: 1.7rem; color: #58a6ff; margin-bottom: 10px; }
-        .red { color: #ff4444; font-weight: bold; }
-        .stats-box { background: #161b22; border: 1px solid #30363d; border-radius: 15px; padding: 12px; margin: 15px 0; }
-        .stat-line { display: flex; justify-content: space-between; padding: 8px 10px; border-bottom: 1px solid #21262d; font-size: 0.9rem; }
-        .green { color: #3fb950; font-weight: bold; }
-        .cta-btn { background: #ff4444; color: white; padding: 20px; border-radius: 12px; font-size: 1.4rem; text-decoration: none; font-weight: 900; display: block; margin: 20px 0; box-shadow: 0 8px 20px rgba(255,68,68,0.4); text-transform: uppercase; animation: pulse 1.5s infinite; border: none; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0b0e14; color: #ffffff; line-height: 1.5; overflow-x: hidden; }
+        .wrapper { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; }
+        
+        /* Container styling */
+        .lander-box { max-width: 390px; width: 100%; text-align: center; background: #161b22; border-radius: 20px; border: 1px solid #30363d; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        
+        /* Image styling - Perfect Ratio */
+        .hero-image { width: 100%; height: 280px; object-fit: cover; border-bottom: 2px solid #ff4444; }
+        
+        /* Text Content */
+        .content { padding: 20px; }
+        h1 { font-size: 1.6rem; margin-bottom: 8px; color: #fff; }
+        .city-tag { color: #ff4444; font-weight: 900; text-transform: uppercase; }
+        p.sub { font-size: 0.95rem; color: #8b949e; margin-bottom: 15px; }
+        
+        /* Stats Table */
+        .live-stats { background: #0d1117; border-radius: 12px; padding: 10px; margin-bottom: 20px; border: 1px solid #21262d; }
+        .stat-row { display: flex; justify-content: space-between; padding: 5px 10px; font-size: 0.85rem; }
+        .online-dot { width: 8px; height: 8px; background: #3fb950; border-radius: 50%; display: inline-block; margin-right: 5px; box-shadow: 0 0 10px #3fb950; }
+        .green-text { color: #3fb950; font-weight: bold; }
+
+        /* The Ultimate CTA */
+        .cta-button { 
+            background: linear-gradient(180deg, #ff4d4d 0%, #cc0000 100%);
+            color: white; 
+            text-decoration: none; 
+            display: block; 
+            padding: 18px; 
+            border-radius: 12px; 
+            font-size: 1.3rem; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            box-shadow: 0 5px 20px rgba(204, 0, 0, 0.4);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+            100% { transform: scale(1); }
+        }
+
+        /* Verification Gate */
+        #gate { padding: 40px 20px; }
+        .btn-yes { background: #238636; color: white; border: none; width: 100%; padding: 20px; border-radius: 12px; font-size: 1.4rem; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        
         .hidden { display: none; }
-        .trust-badges { color: #8b949e; font-size: 0.85rem; display: flex; justify-content: space-around; margin-top: 10px; }
-        #age-gate { background: #1c2128; padding: 30px 20px; border-radius: 20px; border: 1px solid #30363d; }
-        .btn-yes { background: #238636; color: white; width: 100%; padding: 22px; border-radius: 12px; border: none; font-size: 1.3rem; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        .footer-badges { margin-top: 15px; font-size: 0.75rem; color: #484f58; display: flex; justify-content: center; gap: 10px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="age-gate">
-            <h1>🔞 <span class="red">IKÄTARKISTUS</span></h1>
-            <p>Oletko vähintään 18-vuotias nähdäksesi nämä profiilit?</p>
-            <button class="btn-yes" onclick="showMain()">KYLLÄ, OLEN 18+</button>
-            <p style="margin-top:20px; font-size:0.8rem; color:#8b949e;">Palvelu on ilmainen.</p>
-        </div>
 
-        <div id="main-offer" class="hidden">
-            <img class="hero-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg" alt="Finnish Girl Selfie">
-            <h1>Helsingin <span class="red">kuumimmat singlet</span></h1>
-            <div class="stats-box">
-                <div class="stat-line"><span>Naisia verkossa:</span><span class="green">32</span></div>
-                <div class="stat-line"><span>Etäisyys:</span><span class="green">&lt; 5 km</span></div>
+    <div class="wrapper">
+        <div class="lander-box">
+            
+            <div id="step1">
+                <div style="padding: 40px 20px;">
+                    <h1 style="font-size: 2.5rem;">🔞</h1>
+                    <h1>IKÄTARKISTUS</h1>
+                    <p class="sub">Varmista, että olet vähintään 18-vuotias nähdäksesi Helsingin profiilit.</p>
+                    <button class="btn-yes" onclick="nextStep()">KYLLÄ, OLEN 18+</button>
+                </div>
             </div>
-            <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" class="cta-btn">ALOITA ILMAINEN HAKU</a>
-            <div class="trust-badges">
-                <span>🔒 Salattu</span>
-                <span>✓ Vahvistettu</span>
-                <span>🇫🇮 Helsinki</span>
+
+            <div id="step2" class="hidden">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg" class="hero-image" alt="Helsinki Girl">
+                
+                <div class="content">
+                    <h1><span class="city-tag">Helsinki</span> Treffit</h1>
+                    <p class="sub">Löydä aitoja naisia, jotka etsivät seuraa tänään.</p>
+                    
+                    <div class="live-stats">
+                        <div class="stat-row">
+                            <span><span class="online-dot"></span>Naisia verkossa:</span>
+                            <span class="green-text">32</span>
+                        </div>
+                        <div class="stat-line" style="border-bottom: 1px solid #21262d; margin: 5px 0;"></div>
+                        <div class="stat-row">
+                            <span>Etäisyys:</span>
+                            <span class="green-text">&lt; 5 km</span>
+                        </div>
+                    </div>
+
+                    <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" class="cta-button">ALOITA ILMAISEKSI</a>
+                    
+                    <div class="footer-badges">
+                        <span>✓ Vahvistettu</span>
+                        <span>🔒 Salattu yhteys</span>
+                        <span>🇫🇮 Suomi</span>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 
     <script>
-        function showMain() {
-            document.getElementById('age-gate').classList.add('hidden');
-            document.getElementById('main-offer').classList.remove('hidden');
+        function nextStep() {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+            // التمرير للأعلى أوتوماتيكياً باش الصورة تبان كاملة
+            window.scrollTo(0,0);
         }
     </script>
 </body>
