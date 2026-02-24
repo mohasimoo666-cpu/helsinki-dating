@@ -10,7 +10,7 @@ body{font-family:Arial,sans-serif;background:#000;color:#fff;margin:0;padding:10
 
 .hero-image { 
     width: 100%; 
-    height: 500px; 
+    height: 420px; 
     background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg');
     background-size: cover;
     background-position: center 10%; 
@@ -25,7 +25,28 @@ p{color:#aaa;font-size:.85rem;margin-bottom:10px}
 .stat{display:flex;justify-content:space-between;margin:5px 0;font-size:.8rem}
 .value{color:#0f0;font-weight:bold}
 #main{display:none; background:#111; border-radius:12px; overflow:hidden; padding-bottom:15px;}
-button{background:#ff4444;color:#fff;border:none;padding:15px;font-size:1.1rem;border-radius:8px;cursor:pointer;margin:10px 0;width:90%; font-weight:bold;}
+
+/* الـ Animation اللي صدعتيني عليها ها هي رجعات */
+button.pulse-btn {
+    background:#ff4444;
+    color:#fff;
+    border:none;
+    padding:15px;
+    font-size:1.1rem;
+    border-radius:8px;
+    cursor:pointer;
+    margin:10px 0;
+    width:90%;
+    font-weight:bold;
+    animation: pulse-red 1.5s infinite;
+}
+
+@keyframes pulse-red {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 68, 68, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
+}
+
 .badge{display:inline-block;background:#222;padding:5px 10px;margin:5px;border-radius:4px;font-size:.7rem}
 </style>
 </head>
@@ -44,7 +65,9 @@ button{background:#ff4444;color:#fff;border:none;padding:15px;font-size:1.1rem;b
         <div class="stat"><span>Viestejä tällä viikolla:</span><span class="value">8,492</span></div>
     </div>
     
-    <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" style="text-decoration:none;"><button>Aloita ilmainen haku!</button></a>
+    <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" style="text-decoration:none;">
+        <button class="pulse-btn">Aloita ilmainen haku!</button>
+    </a>
     
     <div>
         <span class="badge">🔒 Turvallinen</span>
@@ -57,8 +80,8 @@ button{background:#ff4444;color:#fff;border:none;padding:15px;font-size:1.1rem;b
     <h1 style="font-size:3rem">🔞</h1>
     <h1>Ikätarkistus</h1>
     <p>Sinun täytyy olla yli 18-vuotias jatkaaksesi</p>
-    <button onclick="showMain()">Kyllä, olen 18+</button>
-    <button onclick="alert('Pahoittelut, vain yli 18-vuotiaille')" style="background:#333">Ei</button>
+    <button class="pulse-btn" onclick="showMain()">Kyllä, olen 18+</button>
+    <button onclick="alert('Pahoittelut, vain yli 18-vuotiaille')" style="background:#333; color:#fff; border:none; padding:15px; width:90%; border-radius:8px; margin-top:10px;">Ei</button>
 </div>
 
 </div>
@@ -72,4 +95,3 @@ function showMain(){
 </script>
 </body>
 </html>
-
