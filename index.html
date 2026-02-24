@@ -8,16 +8,16 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0b0e14; color: #ffffff; line-height: 1.5; overflow: hidden; }
         .wrapper { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; }
-        
         .lander-box { max-width: 390px; width: 100%; text-align: center; background: #161b22; border-radius: 20px; border: 1px solid #30363d; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         
-        /* الإصلاح هنا: استعملت background-image باش نتحكمو في مكان الوجه */
+        /* التعديل الذهبي هنا */
         .hero-image { 
             width: 100%; 
-            height: 260px; 
+            height: 270px; 
             background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg');
             background-size: cover;
-            background-position: center 0%; /* هادي كاتخلي الشعر والراس يبانو كاملين */
+            /* 15% كطلعها شوية باش يبان الشعر والوجه مجموعين ف الوسط */
+            background-position: center 15%; 
             border-bottom: 2px solid #ff4444; 
         }
         
@@ -25,7 +25,6 @@
         h1 { font-size: 1.5rem; margin-bottom: 8px; color: #fff; }
         .city-tag { color: #ff4444; font-weight: 900; text-transform: uppercase; }
         p.sub { font-size: 0.9rem; color: #8b949e; margin-bottom: 12px; }
-        
         .live-stats { background: #0d1117; border-radius: 12px; padding: 8px; margin-bottom: 15px; border: 1px solid #21262d; }
         .stat-row { display: flex; justify-content: space-between; padding: 4px 10px; font-size: 0.8rem; }
         .online-dot { width: 8px; height: 8px; background: #3fb950; border-radius: 50%; display: inline-block; margin-right: 5px; box-shadow: 0 0 10px #3fb950; }
@@ -41,85 +40,53 @@
             font-size: 1.2rem; 
             font-weight: 900; 
             text-transform: uppercase; 
-            box-shadow: 0 5px 20px rgba(204, 0, 0, 0.4);
             animation: pulse 1.5s infinite;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
-
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
         #step1 { padding: 40px 20px; }
         .btn-yes { background: #238636; color: white; border: none; width: 100%; padding: 20px; border-radius: 12px; font-size: 1.4rem; font-weight: bold; cursor: pointer; margin-top: 20px; }
-        
         .hidden { display: none; }
         .footer-badges { margin-top: 12px; font-size: 0.7rem; color: #484f58; display: flex; justify-content: center; gap: 10px; }
     </style>
 </head>
 <body>
-
     <div class="wrapper">
         <div class="lander-box">
-            
             <div id="step1">
                 <div style="padding: 20px;">
                     <h1 style="font-size: 2.5rem;">🔞</h1>
                     <h1>IKÄTARKISTUS</h1>
-                    <p class="sub">Varmista, että olet vähintään 18-vuotias nähdäksesi paikalliset profiilit.</p>
+                    <p class="sub">Varmista, että olet vähintään 18-vuotias.</p>
                     <button class="btn-yes" onclick="nextStep()">KYLLÄ, OLEN 18+</button>
                 </div>
             </div>
-
             <div id="step2" class="hidden">
                 <div class="hero-image"></div>
-                
                 <div class="content">
                     <h1><span id="dynamic-city" class="city-tag">Helsinki</span> Treffit</h1>
-                    <p class="sub">Löydä aitoja naisia, jotka etsivät seuraa tänään.</p>
-                    
+                    <p class="sub">Löydä aitoja naisia tänään.</p>
                     <div class="live-stats">
-                        <div class="stat-row">
-                            <span><span class="online-dot"></span>Naisia verkossa:</span>
-                            <span class="green-text">32</span>
-                        </div>
-                        <div class="stat-row" style="border-top: 1px solid #21262d; margin-top: 5px; padding-top: 5px;">
-                            <span>Etäisyys:</span>
-                            <span class="green-text">&lt; 5 km</span>
-                        </div>
+                        <div class="stat-row"><span>Online:</span><span class="green-text">32</span></div>
+                        <div class="stat-row" style="border-top: 1px solid #21262d; margin-top: 5px; padding-top: 5px;"><span>Etäisyys:</span><span class="green-text">&lt; 5 km</span></div>
                     </div>
-
                     <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" class="cta-button">ALOITA ILMAISEKSI</a>
-                    
-                    <div class="footer-badges">
-                        <span>✓ Vahvistettu</span>
-                        <span>🔒 Salattu yhteys</span>
-                        <span>🇫🇮 Suomi</span>
-                    </div>
                 </div>
             </div>
-
         </div>
     </div>
-
     <script>
-        // سكريبت المدينة الذكية
         async function fetchCity() {
             try {
                 const response = await fetch('https://ipapi.co/json/');
                 const data = await response.json();
-                if(data.city) {
-                    document.getElementById('dynamic-city').innerText = data.city;
-                }
-            } catch (e) { console.log("City detection skipped"); }
+                if(data.city) document.getElementById('dynamic-city').innerText = data.city;
+            } catch (e) {}
         }
         fetchCity();
-
         function nextStep() {
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
-            window.scrollTo(0,0);
         }
     </script>
 </body>
