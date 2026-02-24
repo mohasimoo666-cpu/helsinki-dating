@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helsingin Treffit - 100% Ilmaiseksi</title>
+    <style>
+        body { font-family: -apple-system, system-ui, Arial, sans-serif; background: #0d1117; color: #fff; margin: 0; padding: 15px; text-align: center; }
+        .container { max-width: 420px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+        .hero-img { width: 100%; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 2px solid #30363d; object-fit: cover; }
+        h1 { font-size: 1.7rem; color: #58a6ff; margin-bottom: 10px; }
+        .red { color: #ff4444; font-weight: bold; }
+        .stats-box { background: #161b22; border: 1px solid #30363d; border-radius: 15px; padding: 12px; margin: 15px 0; }
+        .stat-line { display: flex; justify-content: space-between; padding: 8px 10px; border-bottom: 1px solid #21262d; font-size: 0.9rem; }
+        .green { color: #3fb950; font-weight: bold; }
+        .cta-btn { background: #ff4444; color: white; padding: 20px; border-radius: 12px; font-size: 1.4rem; text-decoration: none; font-weight: 900; display: block; margin: 20px 0; box-shadow: 0 8px 20px rgba(255,68,68,0.4); text-transform: uppercase; animation: pulse 1.5s infinite; border: none; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+        .hidden { display: none; }
+        .trust-badges { color: #8b949e; font-size: 0.85rem; display: flex; justify-content: space-around; margin-top: 10px; }
+        #age-gate { background: #1c2128; padding: 30px 20px; border-radius: 20px; border: 1px solid #30363d; }
+        .btn-yes { background: #238636; color: white; width: 100%; padding: 22px; border-radius: 12px; border: none; font-size: 1.3rem; font-weight: bold; cursor: pointer; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="age-gate">
+            <h1>🔞 <span class="red">IKÄTARKISTUS</span></h1>
+            <p>Oletko vähintään 18-vuotias nähdäksesi nämä profiilit?</p>
+            <button class="btn-yes" onclick="showMain()">KYLLÄ, OLEN 18+</button>
+            <p style="margin-top:20px; font-size:0.8rem; color:#8b949e;">Palvelu on ilmainen.</p>
+        </div>
+
+        <div id="main-offer" class="hidden">
+            <img class="hero-img" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg" alt="Finnish Girl Selfie">
+            <h1>Helsingin <span class="red">kuumimmat singlet</span></h1>
+            <div class="stats-box">
+                <div class="stat-line"><span>Naisia verkossa:</span><span class="green">32</span></div>
+                <div class="stat-line"><span>Etäisyys:</span><span class="green">&lt; 5 km</span></div>
+            </div>
+            <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" class="cta-btn">ALOITA ILMAINEN HAKU</a>
+            <div class="trust-badges">
+                <span>🔒 Salattu</span>
+                <span>✓ Vahvistettu</span>
+                <span>🇫🇮 Helsinki</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showMain() {
+            document.getElementById('age-gate').classList.add('hidden');
+            document.getElementById('main-offer').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
