@@ -1,118 +1,76 @@
 <!DOCTYPE html>
-<html lang="fi">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Helsinki Dating</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, system-ui, sans-serif; background: #0b0e14; color: #ffffff; overflow: hidden; }
-        
-        /* جعل الصفحة كاملة كأنها تطبيق */
-        .wrapper { height: 100vh; display: flex; align-items: center; justify-content: center; padding: 10px; }
-        
-        .lander-box { 
-            max-width: 390px; 
-            width: 100%; 
-            background: #161b22; 
-            border-radius: 20px; 
-            border: 1px solid #30363d; 
-            overflow: hidden; /* ضرورية باش التصويرة تتبع القنت ديال الكارطة */
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Helsinki Dating - 100% Free</title>
+<style>
+/* خديت الـ Style ديالك وبدلت فيه غير داكشي اللي كيخلي الصفحة تكون وحدة وبلا سكرول */
+body{font-family:Arial,sans-serif;background:#000;color:#fff;margin:0;padding:10px;text-align:center; overflow:hidden;}
+.container{max-width:400px;margin:0 auto; height: 100vh; display: flex; flex-direction: column; justify-content: center;}
 
-        /* التصويرة دابا لاصقة لفوق وبحال Tinder */
-        .hero-image { 
-            width: 100%; 
-            height: 320px; /* طولناها باش تبان Card حقيقية */
-            background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg');
-            background-size: cover;
-            background-position: center 10%; /* تركيز مثالي على الوجه */
-            border-bottom: 4px solid #ff4444; 
-        }
+/* هادي هي الصورة اللي طلبتي: طويلة، لاصقة من الجناب، وبحال Tinder */
+.hero-image { 
+    width: 100%; 
+    height: 300px; /* طولتها باش تبان Card */
+    background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg');
+    background-size: cover;
+    background-position: center 10%; /* باش الوجه يبان كامل ومايتقطعش */
+    border-radius: 12px 12px 0 0;
+    border-bottom: 3px solid #ff4444;
+    margin-bottom: 10px;
+}
 
-        .content { padding: 20px; text-align: center; }
-        h1 { font-size: 1.6rem; margin-bottom: 5px; font-weight: 800; }
-        .city-tag { color: #ff4444; text-transform: uppercase; }
-        p.sub { font-size: 0.95rem; color: #8b949e; margin-bottom: 15px; }
-
-        .live-stats { background: #0d1117; border-radius: 15px; padding: 12px; margin-bottom: 20px; border: 1px solid #21262d; }
-        .stat-row { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 2px 5px; }
-        .green-text { color: #3fb950; font-weight: bold; }
-
-        .cta-button { 
-            background: linear-gradient(180deg, #ff4d4d 0%, #cc0000 100%);
-            color: white; 
-            text-decoration: none; 
-            display: block; 
-            padding: 18px; 
-            border-radius: 15px; 
-            font-size: 1.3rem; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            box-shadow: 0 5px 20px rgba(204, 0, 0, 0.4);
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
-
-        /* Gate styling */
-        #step1 { padding: 50px 20px; text-align: center; }
-        .btn-yes { background: #238636; color: white; border: none; width: 100%; padding: 20px; border-radius: 15px; font-size: 1.4rem; font-weight: bold; cursor: pointer; margin-top: 20px; }
-        
-        .hidden { display: none; }
-    </style>
+h1{color:#ff4444;font-size:1.4rem;margin-bottom:5px}
+p{color:#aaa;font-size:.85rem;margin-bottom:10px}
+.stats{background:#111;padding:10px;border-radius:8px;margin:10px 0}
+.stat{display:flex;justify-content:space-between;margin:5px 0;font-size:.8rem}
+.value{color:#0f0;font-weight:bold}
+#main{display:none; background:#111; border-radius:12px; overflow:hidden; padding-bottom:15px;}
+button{background:#ff4444;color:#fff;border:none;padding:15px;font-size:1.1rem;border-radius:8px;cursor:pointer;margin:10px 0;width:90%; font-weight:bold;}
+.badge{display:inline-block;background:#222;padding:5px 10px;margin:5px;border-radius:4px;font-size:.7rem}
+</style>
 </head>
 <body>
+<div class="container">
 
-    <div class="wrapper">
-        <div class="lander-box">
-            
-            <div id="step1">
-                <h1 style="font-size: 3rem; margin-bottom: 10px;">🔞</h1>
-                <h1>IKÄTARKISTUS</h1>
-                <p class="sub">Varmista, että olet vähintään 18-vuotias jatkaaksesi.</p>
-                <button class="btn-yes" onclick="nextStep()">KYLLÄ, OLEN 18+</button>
-            </div>
-
-            <div id="step2" class="hidden">
-                <div class="hero-image"></div>
-                <div class="content">
-                    <h1><span id="dynamic-city" class="city-tag">Helsinki</span> Singlet</h1>
-                    <p class="sub">Löydä aitoja naisia, jotka etsivät seuraa.</p>
-                    
-                    <div class="live-stats">
-                        <div class="stat-row">
-                            <span>Online dabba:</span>
-                            <span class="green-text">32 naista</span>
-                        </div>
-                        <div class="stat-row">
-                            <span>Etäisyys:</span>
-                            <span class="green-text">&lt; 5 km</span>
-                        </div>
-                    </div>
-
-                    <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" class="cta-button">ALOITA NYT</a>
-                </div>
-            </div>
-
-        </div>
+<div id="main">
+    <div class="hero-image"></div>
+    
+    <h1>Helsinki <span style="color:#fff">Dating</span></h1>
+    <p>100% Free Registration – Find Love Today!</p>
+    
+    <div class="stats">
+        <div class="stat"><span>Active Women Now:</span><span class="value">32</span></div>
+        <div class="stat"><span>New Members Today:</span><span class="value">+127</span></div>
+        <div class="stat"><span>Messages This Week:</span><span class="value">8,492</span></div>
     </div>
+    
+    <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" style="text-decoration:none;"><button>Start Free Search Now!</button></a>
+    
+    <div>
+        <span class="badge">🔒 Secure</span>
+        <span class="badge">✓ Verified</span>
+        <span class="badge">🇫🇮 Local</span>
+    </div>
+</div>
 
-    <script>
-        async function fetchCity() {
-            try {
-                const response = await fetch('https://ipapi.co/json/');
-                const data = await response.json();
-                if(data.city) document.getElementById('dynamic-city').innerText = data.city;
-            } catch (e) {}
-        }
-        fetchCity();
+<div id="gate">
+    <h1 style="font-size:3rem">🔞</h1>
+    <h1>Age Verification</h1>
+    <p>You must be 18+ to enter</p>
+    <button onclick="showMain()">Yes, I'm 18+</button>
+    <button onclick="alert('Sorry, 18+ only')" style="background:#333">No</button>
+</div>
 
-        function nextStep() {
-            document.getElementById('step1').classList.add('hidden');
-            document.getElementById('step2').classList.remove('hidden');
-        }
-    </script>
+</div>
+
+<script>
+function showMain(){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('main').style.display='block';
+    window.scrollTo(0,0);
+}
+</script>
 </body>
 </html>
