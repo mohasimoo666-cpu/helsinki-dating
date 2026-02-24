@@ -3,31 +3,41 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Helsinki Dating - Suomi</title>
+    <title>Helsinki Dating</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0b0e14; color: #ffffff; line-height: 1.5; overflow: hidden; }
-        .wrapper { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; }
-        .lander-box { max-width: 390px; width: 100%; text-align: center; background: #161b22; border-radius: 20px; border: 1px solid #30363d; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        body { font-family: -apple-system, system-ui, sans-serif; background: #0b0e14; color: #ffffff; overflow: hidden; }
         
-        /* التعديل الذهبي هنا */
+        /* جعل الصفحة كاملة كأنها تطبيق */
+        .wrapper { height: 100vh; display: flex; align-items: center; justify-content: center; padding: 10px; }
+        
+        .lander-box { 
+            max-width: 390px; 
+            width: 100%; 
+            background: #161b22; 
+            border-radius: 20px; 
+            border: 1px solid #30363d; 
+            overflow: hidden; /* ضرورية باش التصويرة تتبع القنت ديال الكارطة */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
+        }
+
+        /* التصويرة دابا لاصقة لفوق وبحال Tinder */
         .hero-image { 
             width: 100%; 
-            height: 270px; 
+            height: 320px; /* طولناها باش تبان Card حقيقية */
             background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg');
             background-size: cover;
-            /* 15% كطلعها شوية باش يبان الشعر والوجه مجموعين ف الوسط */
-            background-position: center 15%; 
-            border-bottom: 2px solid #ff4444; 
+            background-position: center 10%; /* تركيز مثالي على الوجه */
+            border-bottom: 4px solid #ff4444; 
         }
-        
-        .content { padding: 15px; }
-        h1 { font-size: 1.5rem; margin-bottom: 8px; color: #fff; }
-        .city-tag { color: #ff4444; font-weight: 900; text-transform: uppercase; }
-        p.sub { font-size: 0.9rem; color: #8b949e; margin-bottom: 12px; }
-        .live-stats { background: #0d1117; border-radius: 12px; padding: 8px; margin-bottom: 15px; border: 1px solid #21262d; }
-        .stat-row { display: flex; justify-content: space-between; padding: 4px 10px; font-size: 0.8rem; }
-        .online-dot { width: 8px; height: 8px; background: #3fb950; border-radius: 50%; display: inline-block; margin-right: 5px; box-shadow: 0 0 10px #3fb950; }
+
+        .content { padding: 20px; text-align: center; }
+        h1 { font-size: 1.6rem; margin-bottom: 5px; font-weight: 800; }
+        .city-tag { color: #ff4444; text-transform: uppercase; }
+        p.sub { font-size: 0.95rem; color: #8b949e; margin-bottom: 15px; }
+
+        .live-stats { background: #0d1117; border-radius: 15px; padding: 12px; margin-bottom: 20px; border: 1px solid #21262d; }
+        .stat-row { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 2px 5px; }
         .green-text { color: #3fb950; font-weight: bold; }
 
         .cta-button { 
@@ -35,46 +45,60 @@
             color: white; 
             text-decoration: none; 
             display: block; 
-            padding: 16px; 
-            border-radius: 12px; 
-            font-size: 1.2rem; 
+            padding: 18px; 
+            border-radius: 15px; 
+            font-size: 1.3rem; 
             font-weight: 900; 
             text-transform: uppercase; 
+            box-shadow: 0 5px 20px rgba(204, 0, 0, 0.4);
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
-        #step1 { padding: 40px 20px; }
-        .btn-yes { background: #238636; color: white; border: none; width: 100%; padding: 20px; border-radius: 12px; font-size: 1.4rem; font-weight: bold; cursor: pointer; margin-top: 20px; }
+
+        /* Gate styling */
+        #step1 { padding: 50px 20px; text-align: center; }
+        .btn-yes { background: #238636; color: white; border: none; width: 100%; padding: 20px; border-radius: 15px; font-size: 1.4rem; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        
         .hidden { display: none; }
-        .footer-badges { margin-top: 12px; font-size: 0.7rem; color: #484f58; display: flex; justify-content: center; gap: 10px; }
     </style>
 </head>
 <body>
+
     <div class="wrapper">
         <div class="lander-box">
+            
             <div id="step1">
-                <div style="padding: 20px;">
-                    <h1 style="font-size: 2.5rem;">🔞</h1>
-                    <h1>IKÄTARKISTUS</h1>
-                    <p class="sub">Varmista, että olet vähintään 18-vuotias.</p>
-                    <button class="btn-yes" onclick="nextStep()">KYLLÄ, OLEN 18+</button>
-                </div>
+                <h1 style="font-size: 3rem; margin-bottom: 10px;">🔞</h1>
+                <h1>IKÄTARKISTUS</h1>
+                <p class="sub">Varmista, että olet vähintään 18-vuotias jatkaaksesi.</p>
+                <button class="btn-yes" onclick="nextStep()">KYLLÄ, OLEN 18+</button>
             </div>
+
             <div id="step2" class="hidden">
                 <div class="hero-image"></div>
                 <div class="content">
-                    <h1><span id="dynamic-city" class="city-tag">Helsinki</span> Treffit</h1>
-                    <p class="sub">Löydä aitoja naisia tänään.</p>
+                    <h1><span id="dynamic-city" class="city-tag">Helsinki</span> Singlet</h1>
+                    <p class="sub">Löydä aitoja naisia, jotka etsivät seuraa.</p>
+                    
                     <div class="live-stats">
-                        <div class="stat-row"><span>Online:</span><span class="green-text">32</span></div>
-                        <div class="stat-row" style="border-top: 1px solid #21262d; margin-top: 5px; padding-top: 5px;"><span>Etäisyys:</span><span class="green-text">&lt; 5 km</span></div>
+                        <div class="stat-row">
+                            <span>Online dabba:</span>
+                            <span class="green-text">32 naista</span>
+                        </div>
+                        <div class="stat-row">
+                            <span>Etäisyys:</span>
+                            <span class="green-text">&lt; 5 km</span>
+                        </div>
                     </div>
-                    <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" class="cta-button">ALOITA ILMAISEKSI</a>
+
+                    <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" class="cta-button">ALOITA NYT</a>
                 </div>
             </div>
+
         </div>
     </div>
+
     <script>
         async function fetchCity() {
             try {
@@ -84,6 +108,7 @@
             } catch (e) {}
         }
         fetchCity();
+
         function nextStep() {
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
