@@ -5,49 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Helsinki Dating - 100% Ilmainen</title>
 <style>
-body{font-family:Arial,sans-serif;background:#000;color:#fff;margin:0;padding:10px;text-align:center; overflow:hidden;}
+body{font-family:Arial,sans-serif;background:#000;color:#fff;margin:0;padding:5px;text-align:center; overflow:hidden;}
 .container{max-width:400px;margin:0 auto; height: 100vh; display: flex; flex-direction: column; justify-content: center;}
+
+#main{
+    display:none; 
+    background:#111; 
+    border-radius:12px; 
+    overflow:hidden; 
+    height: 95vh; /* شاد الشاشة كاملة تقريبا */
+    flex-direction: column;
+}
 
 .hero-image { 
     width: 100%; 
-    height: 420px; 
+    flex-grow: 1; /* كياخد المساحة اللي بقات كاملة */
     background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg');
     background-size: cover;
-    background-position: center 10%; 
-    border-radius: 12px 12px 0 0;
+    background-position: center 15%; 
     border-bottom: 3px solid #ff4444;
-    margin-bottom: 10px;
 }
 
-h1{color:#ff4444;font-size:1.4rem;margin-bottom:5px}
-p{color:#aaa;font-size:.85rem;margin-bottom:10px}
-.stats{background:#111;padding:10px;border-radius:8px;margin:10px 0}
-.stat{display:flex;justify-content:space-between;margin:5px 0;font-size:.8rem}
+h1{color:#ff4444;font-size:1.3rem;margin:5px 0}
+p{color:#aaa;font-size:.8rem;margin-bottom:5px}
+.stats{background:#000;padding:8px;border-radius:8px;margin:5px 15px}
+.stat{display:flex;justify-content:space-between;margin:3px 0;font-size:.75rem}
 .value{color:#0f0;font-weight:bold}
-#main{display:none; background:#111; border-radius:12px; overflow:hidden; padding-bottom:15px;}
 
-/* الـ Animation اللي صدعتيني عليها ها هي رجعات */
 button.pulse-btn {
-    background:#ff4444;
-    color:#fff;
-    border:none;
-    padding:15px;
-    font-size:1.1rem;
-    border-radius:8px;
-    cursor:pointer;
-    margin:10px 0;
-    width:90%;
-    font-weight:bold;
-    animation: pulse-red 1.5s infinite;
+    background:#ff4444; color:#fff; border:none; padding:15px; font-size:1.1rem; border-radius:8px; cursor:pointer; margin:10px auto; width:90%; font-weight:bold; animation: pulse-red 1.5s infinite;
 }
 
 @keyframes pulse-red {
     0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7); }
-    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 68, 68, 0); }
+    70% { transform: scale(1.03); box-shadow: 0 0 0 8px rgba(255, 68, 68, 0); }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
 }
 
-.badge{display:inline-block;background:#222;padding:5px 10px;margin:5px;border-radius:4px;font-size:.7rem}
+.badge{display:inline-block;background:#222;padding:4px 8px;margin:2px;border-radius:4px;font-size:.65rem}
+
+#gate{height: 100%; display: flex; flex-direction: column; justify-content: center;}
 </style>
 </head>
 <body>
@@ -57,19 +54,18 @@ button.pulse-btn {
     <div class="hero-image"></div>
     
     <h1>Helsinki <span style="color:#fff">Deittailu</span></h1>
-    <p>100% ilmainen rekisteröityminen – Löydä rakkaus tänään!</p>
+    <p>100% ilmainen rekisteröityminen</p>
     
     <div class="stats">
-        <div class="stat"><span>Aktiivisia naisia nyt:</span><span class="value">32</span></div>
-        <div class="stat"><span>Uusia jäseniä tänään:</span><span class="value">+127</span></div>
-        <div class="stat"><span>Viestejä tällä viikolla:</span><span class="value">8,492</span></div>
+        <div class="stat"><span>Aktiivisia naisia:</span><span class="value">32</span></div>
+        <div class="stat"><span>Uusia jäseniä:</span><span class="value">+127</span></div>
     </div>
     
     <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" style="text-decoration:none;">
         <button class="pulse-btn">Aloita ilmainen haku!</button>
     </a>
     
-    <div>
+    <div style="margin-bottom:10px">
         <span class="badge">🔒 Turvallinen</span>
         <span class="badge">✓ Vahvistettu</span>
         <span class="badge">🇫🇮 Paikallinen</span>
@@ -78,10 +74,9 @@ button.pulse-btn {
 
 <div id="gate">
     <h1 style="font-size:3rem">🔞</h1>
-    <h1>Ikätarkistus</h1>
+    <h1 style="color:#ff4444">Ikätarkistus</h1>
     <p>Sinun täytyy olla yli 18-vuotias jatkaaksesi</p>
     <button class="pulse-btn" onclick="showMain()">Kyllä, olen 18+</button>
-    <button onclick="alert('Pahoittelut, vain yli 18-vuotiaille')" style="background:#333; color:#fff; border:none; padding:15px; width:90%; border-radius:8px; margin-top:10px;">Ei</button>
 </div>
 
 </div>
@@ -89,7 +84,7 @@ button.pulse-btn {
 <script>
 function showMain(){
     document.getElementById('gate').style.display='none';
-    document.getElementById('main').style.display='block';
+    document.getElementById('main').style.display='flex'; // حولناه لـ Flex باش تخدم flex-grow
     window.scrollTo(0,0);
 }
 </script>
