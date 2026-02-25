@@ -1,230 +1,655 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Helsinki Treffit – Löydä seuraa tänään</title>
-<meta name="description" content="Löydä seuraa Helsingistä ilmaiseksi. Yli 30 aktiivista naista alueellasi odottaa sinua nyt.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Helsinki Treffit – Löydä seuraa heti</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://blogger.googleusercontent.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168-rw/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg">
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #0c0c0c;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
 
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --red:#e82c2c;--red-dark:#b81c1c;--red-glow:rgba(232,44,44,.45);
-  --gold:#f5c842;--bg:#0a0a0a;--surface:#111;--surface2:#1a1a1a;
-  --text:#f0ece4;--muted:#888;--green:#22c55e
-}
-html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text)}
+    .container {
+      max-width: 420px;
+      width: 100%;
+      background: #131313;
+      border-radius: 28px 28px 20px 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(255, 59, 59, 0.3);
+      border: 1px solid #2a2a2a;
+    }
 
-#gate{
-  position:fixed;inset:0;background:var(--bg);
-  display:flex;flex-direction:column;align-items:center;
-  justify-content:center;z-index:100;padding:30px;
-  text-align:center;gap:18px
-}
-.gate-icon{font-size:4rem;animation:float 3s ease-in-out infinite;will-change:transform}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.gate-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--text);line-height:1.1}
-.gate-title span{color:var(--red)}
-.gate-sub{color:var(--muted);font-size:.85rem;max-width:260px}
-.gate-btn{
-  background:var(--red);color:#fff;border:none;padding:16px 40px;
-  font-size:1.05rem;font-weight:600;font-family:'DM Sans',sans-serif;
-  border-radius:50px;cursor:pointer;letter-spacing:.03em;
-  position:relative;overflow:hidden;transition:transform .15s;
-  box-shadow:0 0 25px var(--red-glow);
-  animation:pulse-btn 2s infinite;will-change:transform
-}
-.gate-btn:active{transform:scale(.97)}
-.gate-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15) 0%,transparent 60%)}
-/* FIX: transform-only animation = composited, no layout/paint */
-@keyframes pulse-btn{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
-.gate-disclaimer{font-size:.65rem;color:#777;max-width:240px}
+    /* Hero-kuva (kuva 1) */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 440px;
+      background: url('https://i.imgur.com/PLACEHOLDER1.jpg') center / cover no-repeat; /* VAIHDA OMAAN KUVAAN */
+      overflow: hidden;
+    }
 
-#main{display:none;height:100%;flex-direction:column;max-width:420px;margin:0 auto;position:relative}
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, #131313 0%, transparent 30%, transparent 70%, #131313 100%);
+    }
 
-.hero{flex:1;min-height:0;position:relative;overflow:hidden}
-.hero-img{width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(10,10,10,.3) 60%,rgba(10,10,10,.85) 85%,#0a0a0a 100%)}
-.online-badge{
-  position:absolute;top:14px;right:14px;background:rgba(0,0,0,.75);
-  backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);
-  border-radius:50px;padding:6px 12px;display:flex;align-items:center;
-  gap:6px;font-size:.72rem;font-weight:600;color:var(--text)
-}
-.dot-live{width:8px;height:8px;background:var(--green);border-radius:50%;animation:blink 1.2s infinite;will-change:opacity}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.profile-strip{position:absolute;bottom:0;left:0;right:0;padding:14px 16px 8px}
-.profile-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;text-shadow:0 2px 12px rgba(0,0,0,.8);line-height:1}
-.profile-meta{font-size:.72rem;color:rgba(240,236,228,.75);margin-top:3px}
+    .badge-live {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255, 59, 59, 0.9);
+      backdrop-filter: blur(4px);
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-.content{flex-shrink:0;background:#0a0a0a;padding:12px 14px 16px}
-.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.stat-card{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px 12px}
-.stat-label{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
-.stat-value{font-size:1.3rem;font-weight:700;color:var(--green);font-variant-numeric:tabular-nums}
-.stat-sub{font-size:.6rem;color:var(--muted);margin-top:1px}
+    .badge-live .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #22c55e;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: blink 1.2s infinite;
+    }
 
-.proof-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.avatars{display:flex}
-.avatar{width:28px;height:28px;border-radius:50%;border:2px solid #0a0a0a;margin-right:-8px;font-size:.7rem;display:flex;align-items:center;justify-content:center;background:var(--surface2);overflow:hidden}
-.proof-text{font-size:.7rem;color:var(--muted);flex:1}
-.proof-text strong{color:var(--text)}
-.stars{color:var(--gold);font-size:.7rem;letter-spacing:1px}
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
 
-/* FIX: CTA pulse = transform only, static shadow */
-.cta-btn{
-  display:block;width:100%;
-  background:linear-gradient(135deg,var(--red) 0%,var(--red-dark) 100%);
-  color:#fff;border:none;padding:16px;font-size:1.05rem;font-weight:700;
-  font-family:'DM Sans',sans-serif;border-radius:12px;cursor:pointer;
-  letter-spacing:.02em;text-align:center;text-decoration:none;
-  position:relative;overflow:hidden;margin-bottom:10px;
-  box-shadow:0 4px 25px var(--red-glow);
-  animation:pulse-cta 1.8s infinite;will-change:transform
-}
-@keyframes pulse-cta{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
-.cta-btn::before{
-  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
-  animation:shimmer 2.5s infinite
-}
-@keyframes shimmer{0%{left:-100%}100%{left:200%}}
-.cta-sub{text-align:center;font-size:.65rem;color:#666;margin-bottom:10px}
+    .hero-text {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      text-align: center;
+    }
 
-.badges{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
-.badge{background:var(--surface);border:1px solid rgba(255,255,255,.07);padding:4px 9px;border-radius:20px;font-size:.62rem;color:#999;display:flex;align-items:center;gap:4px}
+    .hero-text h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      text-shadow: 0 4px 15px black;
+      line-height: 1.1;
+      margin-bottom: 5px;
+    }
 
-.notif{
-  position:fixed;bottom:20px;left:50%;
-  transform:translateX(-50%) translateY(80px);
-  background:var(--surface2);border:1px solid rgba(255,255,255,.1);
-  border-left:3px solid var(--red);border-radius:10px;
-  padding:10px 14px;max-width:320px;width:90%;
-  display:flex;align-items:center;gap:10px;font-size:.72rem;
-  opacity:0;transition:opacity .4s,transform .4s cubic-bezier(.34,1.56,.64,1);
-  z-index:50;pointer-events:none;will-change:transform,opacity
-}
-.notif.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.notif-avatar{width:34px;height:34px;border-radius:50%;background:var(--surface);font-size:1.2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.notif-name{font-weight:600;color:var(--text)}
-.notif-action{color:var(--muted)}
-.notif-time{color:var(--red);font-size:.6rem;margin-top:1px}
-</style>
+    .hero-text p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      text-shadow: 0 2px 8px black;
+    }
+
+    /* Sisältöalue */
+    .content {
+      padding: 20px 16px 24px;
+    }
+
+    /* Statistiikka */
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .stat-item {
+      background: #1f1f1f;
+      flex: 1;
+      border-radius: 16px;
+      padding: 14px 6px;
+      text-align: center;
+      border: 1px solid #2e2e2e;
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #ff3b3b;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    /* Kysely (QUIZ) */
+    .quiz-area {
+      background: #1a1a1a;
+      border-radius: 20px;
+      padding: 18px 14px;
+      margin-bottom: 20px;
+      border: 1px solid #333;
+    }
+
+    .question {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .question .emoji-big {
+      font-size: 1.8rem;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .option-btn {
+      background: #2a2a2a;
+      border: 1px solid #404040;
+      border-radius: 40px;
+      padding: 14px 18px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #fff;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.15s;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+
+    .option-btn:active {
+      transform: scale(0.98);
+      background: #ff3b3b;
+      border-color: #ff3b3b;
+    }
+
+    .option-btn.selected {
+      background: #ff3b3b;
+      border-color: #ff3b3b;
+      box-shadow: 0 0 15px #ff3b3b;
+    }
+
+    .option-emoji {
+      font-size: 1.4rem;
+      width: 30px;
+      text-align: center;
+    }
+
+    /* Kuva 2 (pieni preview) */
+    .preview-image {
+      width: 100%;
+      height: 100px;
+      background: url('https://i.imgur.com/PLACEHOLDER2.jpg') center / cover no-repeat;
+      border-radius: 16px;
+      margin: 10px 0 8px;
+      border: 2px solid #ff3b3b33;
+      box-shadow: 0 0 20px rgba(255, 59, 59, 0.3);
+    }
+
+    /* Tulossivu (näytetään kun quiz valmis) */
+    .results-area {
+      display: none;
+      background: #1a1a1a;
+      border-radius: 20px;
+      padding: 18px 14px;
+      margin-bottom: 20px;
+      border: 1px solid #333;
+    }
+
+    .results-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-align: center;
+      color: #ffb347;
+    }
+
+    .match-grid {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .match-item {
+      flex: 1;
+      background: #2a2a2a;
+      border-radius: 12px;
+      padding: 8px 4px;
+      text-align: center;
+      border: 1px solid #444;
+    }
+
+    .match-item img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ff3b3b;
+      margin-bottom: 6px;
+    }
+
+    .match-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .match-age {
+      color: #aaa;
+      font-size: 0.75rem;
+    }
+
+    .match-distance {
+      font-size: 0.65rem;
+      color: #ff3b3b;
+    }
+
+    .counter-big {
+      background: #2a2a2a;
+      border-radius: 40px;
+      padding: 14px;
+      text-align: center;
+      margin: 15px 0;
+      border: 1px solid #ff3b3b;
+      font-size: 1.1rem;
+    }
+
+    .counter-big span {
+      color: #ff3b3b;
+      font-weight: 800;
+      font-size: 1.6rem;
+      margin-right: 5px;
+    }
+
+    /* CTA-painike */
+    .cta-button {
+      display: block;
+      background: linear-gradient(135deg, #ff3b3b 0%, #b12a2a 100%);
+      color: white;
+      text-align: center;
+      padding: 18px 10px;
+      border-radius: 60px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      text-decoration: none;
+      margin: 20px 0 12px;
+      box-shadow: 0 8px 25px #ff3b3b;
+      border: 1px solid #ff7777;
+      transition: transform 0.1s;
+      animation: ctaPulse 1.8s infinite;
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes ctaPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    .cta-button:active {
+      transform: scale(0.97);
+    }
+
+    .cta-sub {
+      font-size: 0.65rem;
+      color: #888;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      background: #1f1f1f;
+      border: 1px solid #333;
+      border-radius: 40px;
+      padding: 5px 12px;
+      font-size: 0.6rem;
+      color: #ccc;
+    }
+
+    /* Notifikaatio (pop-up alhaalla) */
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1f1f1f;
+      border-left: 5px solid #ff3b3b;
+      border-radius: 16px;
+      padding: 12px 18px;
+      width: 320px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 30px black;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 1000;
+      border: 1px solid #444;
+    }
+
+    .notification.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .notif-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #2a2a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      border: 2px solid #ff3b3b;
+    }
+
+    .notif-text {
+      flex: 1;
+    }
+
+    .notif-name {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .notif-action {
+      font-size: 0.8rem;
+      color: #bbb;
+    }
+
+    .notif-time {
+      color: #ff3b3b;
+      font-size: 0.65rem;
+      margin-top: 3px;
+    }
+
+    /* Piilotettu linkki */
+    .hidden-link {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-
-<div id="gate">
-  <div class="gate-icon">🔞</div>
-  <h1 class="gate-title">Tervetuloa<br><span>Helsinki Treffit</span></h1>
-  <p class="gate-sub">Tämä sivusto sisältää aikuisille tarkoitettua sisältöä</p>
-  <button class="gate-btn" onclick="showMain()">✓ &nbsp;Olen yli 18-vuotias</button>
-  <p class="gate-disclaimer">Jatkamalla vahvistat olevasi yli 18-vuotias ja hyväksyt käyttöehdot</p>
-</div>
-
-<div id="main">
+<div class="container">
+  <!-- HERO (kuva 1) -->
   <div class="hero">
-    <img class="hero-img"
-      src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhpOM7umX5NFxOZfHuxssGwZChTcWvoEjp7mv0vE2Q9VXhSSf28d_TcQcwh6C8Tft6V6nsx0ku5aEApAfma3JKkPlzffeZauszcVLzRspiHiPqVHEV_ri51aoADW8RoRmLwOi1PTQgdBEPOtJmVRgFcATVmNdr5-Tv4-i4NNS3x2jj8CWqyPoiYEex7rwU/s1168-rw/f8ff44e8-115a-4075-9a37-8310ad6f16aa.jpg"
-      alt="Helsinki Treffit profiilikuva"
-      width="420" height="600"
-      fetchpriority="high"
-      decoding="async">
-    <div class="hero-overlay"></div>
-    <div class="online-badge"><div class="dot-live"></div>Aktiivinen nyt</div>
-    <div class="profile-strip">
-      <div class="profile-name">Katariina, 26</div>
-      <div class="profile-meta">📍 Helsinki · Etsii seuraa</div>
+    <div class="badge-live">
+      <span class="dot"></span> AKTIIVINEN NYT · 23:14
+    </div>
+    <div class="hero-text">
+      <h1>Odotin sinua</h1>
+      <p>34 naista lähelläsi haluaa tavata</p>
     </div>
   </div>
 
   <div class="content">
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-label">Aktiivisia naisia</div>
-        <div class="stat-value" id="stat1">34</div>
-        <div class="stat-sub">Helsingin alueella</div>
+    <!-- Nopea statistiikka (houkutus) -->
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-number" id="statOnline">37</div>
+        <div class="stat-label">AKTIIVISIA</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-label">Uusia jäseniä tänään</div>
-        <div class="stat-value" id="stat2">+143</div>
-        <div class="stat-sub">Viimeisen 24h aikana</div>
+      <div class="stat-item">
+        <div class="stat-number" id="statNew">+124</div>
+        <div class="stat-label">UUSIA TÄNÄÄN</div>
       </div>
-    </div>
-
-    <div class="proof-row">
-      <div class="avatars">
-        <div class="avatar">👩</div>
-        <div class="avatar">👱‍♀️</div>
-        <div class="avatar">👩‍🦰</div>
-        <div class="avatar" style="background:var(--red);color:#fff;font-size:.55rem;font-weight:700;margin-right:0">+31</div>
-      </div>
-      <div class="proof-text">
-        <strong>34 naista</strong> lähellä sinua odottaa
-        <div class="stars">★★★★★ <span style="color:var(--muted)">4.8/5</span></div>
+      <div class="stat-item">
+        <div class="stat-number" id="statNear">52</div>
+        <div class="stat-label">LÄHELLÄ</div>
       </div>
     </div>
 
-    <a href="https://datebest.pro/a/Dk6X6F1oVUZ4qV" class="cta-btn" rel="noopener noreferrer">
-      💬 &nbsp;Löydä seuraa nyt – Ilmainen!
-    </a>
+    <!-- QUIZ-ALUE (ensin näkyvissä) -->
+    <div id="quizContainer" class="quiz-area">
+      <div class="question">
+        <span class="emoji-big">💬</span> Mitä etsit?
+      </div>
+      <div class="options" id="question1">
+        <div class="option-btn" data-value="serious">
+          <span class="option-emoji">💍</span> Vakava suhde
+        </div>
+        <div class="option-btn" data-value="casual">
+          <span class="option-emoji">🔥</span> Rentoa seuraa
+        </div>
+        <div class="option-btn" data-value="friendship">
+          <span class="option-emoji">🍸</span> Ystävyyttä
+        </div>
+      </div>
 
-    <p class="cta-sub">🔒 Ei luottokorttia · Rekisteröityminen kestää 30 sekuntia</p>
+      <!-- Pieni kuva (kuva 2) -->
+      <div class="preview-image"></div>
 
-    <div class="badges">
-      <span class="badge">🔒 Turvallinen</span>
+      <div class="question" style="margin-top: 12px;">
+        <span class="emoji-big">👀</span> Minkä ikäinen kiinnostaa?
+      </div>
+      <div class="options" id="question2">
+        <div class="option-btn" data-value="18-25">
+          <span class="option-emoji">🌟</span> 18–25
+        </div>
+        <div class="option-btn" data-value="26-35">
+          <span class="option-emoji">✨</span> 26–35
+        </div>
+        <div class="option-btn" data-value="36-45">
+          <span class="option-emoji">💫</span> 36–45
+        </div>
+      </div>
+
+      <div style="margin-top: 18px; text-align: center;">
+        <button id="quizSubmit" class="cta-button" style="margin:0; padding:14px; font-size:1.1rem;">Näytä tulokset →</button>
+      </div>
+    </div>
+
+    <!-- TULOSSIVU (piilotettu aluksi) -->
+    <div id="resultsContainer" class="results-area">
+      <div class="results-title">✨ Löysimme sinulle 34 naista!</div>
+      
+      <!-- Kolme matchia esimerkkinä -->
+      <div class="match-grid">
+        <div class="match-item">
+          <img src="https://i.imgur.com/PLACEHOLDER3.jpg" alt="match" onerror="this.style.display='none'">
+          <div class="match-name">Emilia</div>
+          <div class="match-age">24 v</div>
+          <div class="match-distance">1.2 km päässä</div>
+        </div>
+        <div class="match-item">
+          <img src="https://i.imgur.com/PLACEHOLDER4.jpg" alt="match" onerror="this.style.display='none'">
+          <div class="match-name">Aino</div>
+          <div class="match-age">29 v</div>
+          <div class="match-distance">3 km päässä</div>
+        </div>
+        <div class="match-item">
+          <img src="https://i.imgur.com/PLACEHOLDER5.jpg" alt="match" onerror="this.style.display='none'">
+          <div class="match-name">Sofia</div>
+          <div class="match-age">31 v</div>
+          <div class="match-distance">0.8 km päässä</div>
+        </div>
+      </div>
+
+      <!-- Elävä laskuri: 34 naista katsomassa nyt -->
+      <div class="counter-big">
+        <span id="liveViewCounter">28</span> naista katselee profiiliasi NYT
+      </div>
+
+      <!-- CTA-button (vie tarjoukseen) -->
+      <a href="#" id="finalCta" class="cta-button">💬 Lähetä viesti ilmaiseksi</a>
+      <p class="cta-sub">🔒 Ei luottokorttia · 30 sekuntia · Vahvistetut profiilit</p>
+    </div>
+
+    <!-- Alabannerit luottamuksen lisäämiseksi -->
+    <div class="badge-row">
       <span class="badge">✓ Vahvistetut profiilit</span>
-      <span class="badge">🇫🇮 Paikalliset naiset</span>
-      <span class="badge">⚡ Nopea vastaus</span>
+      <span class="badge">🇫🇮 Suomalaiset naiset</span>
+      <span class="badge">🔒 SSL-suojattu</span>
+      <span class="badge">⚡ 24/7 aktiivisia</span>
     </div>
   </div>
 </div>
 
-<div class="notif" id="notif">
-  <div class="notif-avatar" id="notif-avatar">👩</div>
-  <div>
-    <div class="notif-name" id="notif-name">Emilia</div>
-    <div class="notif-action" id="notif-action">liittyi juuri palveluun</div>
+<!-- Notifikaatio (uusi jäsen) -->
+<div class="notification" id="liveNotif">
+  <div class="notif-avatar" id="notifAvatar">👩</div>
+  <div class="notif-text">
+    <div class="notif-name" id="notifName">Emilia</div>
+    <div class="notif-action" id="notifAction">liittyi juuri</div>
     <div class="notif-time">Juuri nyt</div>
   </div>
 </div>
 
+<!-- Piilotettu linkki (offer) -->
+<div class="hidden-link">
+  <!-- Tähän piilotettu linkki, jota käytetään ohjaukseen -->
+</div>
+
 <script>
-const names=['Emilia','Aino','Siiri','Liisa','Henna','Katja','Tiia','Minna','Sanna','Laura','Elina','Maija'];
-const actions=['liittyi juuri palveluun','lähetti viestin sinulle','katseli profiiliasi','on lähellä sinua','on aktiivinen nyt'];
-const emojis=['👩','👱‍♀️','👩‍🦰','🧕','👩‍🦱'];
+  (function() {
+    // ---------- SUOJAUS BOTTEJA VASTAAN ----------
+    if (navigator.webdriver || /headless/i.test(navigator.userAgent)) {
+      window.location.href = 'https://www.google.com';
+    }
 
-function showMain(){
-  document.getElementById('gate').style.display='none';
-  const m=document.getElementById('main');
-  m.style.display='flex';m.style.flexDirection='column';
-  animateStats();
-  setTimeout(showNotif,2500);
-  setInterval(()=>setTimeout(showNotif,Math.random()*3e3),9e3);
-}
+    // ---------- MUUTTUJAT ----------
+    const quizContainer = document.getElementById('quizContainer');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const submitBtn = document.getElementById('quizSubmit');
+    const finalCta = document.getElementById('finalCta');
+    
+    // Tähän oma CPA-linkkisi
+    const OFFER_URL = 'https://datebest.pro/a/Dk6X6F1oVUZ4qV'; // VAIHDA OMAAN LINKKIIN
 
-function animateCount(id,min,max,prefix){
-  const el=document.getElementById(id);
-  const target=min+Math.floor(Math.random()*(max-min+1));
-  let cur=min;const step=Math.ceil((target-min)/20);
-  const t=setInterval(()=>{cur=Math.min(cur+step,target);el.textContent=prefix+cur;if(cur>=target)clearInterval(t);},40);
-  setInterval(()=>{const d=Math.floor(Math.random()*5)-2;const v=parseInt(el.textContent.replace('+',''))+d;el.textContent=prefix+Math.max(min-5,v);},Math.random()*7e3+8e3);
-}
+    // Valitut vastaukset
+    let selectedQ1 = null;
+    let selectedQ2 = null;
 
-function animateStats(){animateCount('stat1',28,38,'');animateCount('stat2',120,160,'+');}
+    // ---------- STATISTIIKAN PÄIVITYS (elävät numerot) ----------
+    function animateStats() {
+      const statOnline = document.getElementById('statOnline');
+      const statNew = document.getElementById('statNew');
+      const statNear = document.getElementById('statNear');
+      
+      setInterval(() => {
+        statOnline.textContent = 34 + Math.floor(Math.random() * 10);
+        statNew.textContent = '+' + (110 + Math.floor(Math.random() * 40));
+        statNear.textContent = 45 + Math.floor(Math.random() * 20);
+      }, 7000);
+    }
 
-function showNotif(){
-  const n=document.getElementById('notif');
-  document.getElementById('notif-name').textContent=names[Math.random()*names.length|0];
-  document.getElementById('notif-action').textContent=actions[Math.random()*actions.length|0];
-  document.getElementById('notif-avatar').textContent=emojis[Math.random()*emojis.length|0];
-  n.classList.add('show');setTimeout(()=>n.classList.remove('show'),3200);
-}
+    // ---------- LASKURI (naisia katsomassa nyt) ----------
+    function startLiveCounter() {
+      const counterEl = document.getElementById('liveViewCounter');
+      if (!counterEl) return;
+      setInterval(() => {
+        let val = 24 + Math.floor(Math.random() * 16); // 24-40
+        counterEl.textContent = val;
+      }, 10000);
+    }
+
+    // ---------- NOTIFIKAATIO (uusia käyttäjiä) ----------
+    function startNotifications() {
+      const notif = document.getElementById('liveNotif');
+      const names = ['Emilia', 'Aino', 'Siiri', 'Liisa', 'Henna', 'Katja', 'Tiia', 'Minna', 'Sanna', 'Elina'];
+      const actions = ['liittyi juuri', 'lähetti sinulle viestin', 'on nyt paikalla', 'haluaa tavata sinut'];
+      const avatars = ['👩', '👱‍♀️', '👩‍🦰', '🧕', '👩‍🦱', '👧'];
+      
+      function showNotif() {
+        document.getElementById('notifName').textContent = names[Math.floor(Math.random() * names.length)];
+        document.getElementById('notifAction').textContent = actions[Math.floor(Math.random() * actions.length)];
+        document.getElementById('notifAvatar').textContent = avatars[Math.floor(Math.random() * avatars.length)];
+        notif.classList.add('show');
+        setTimeout(() => notif.classList.remove('show'), 3500);
+      }
+      
+      // ensimmäinen notif 3 sek päästä, sitten satunnaisesti 7-14 sek välein
+      setTimeout(showNotif, 3000);
+      setInterval(() => {
+        setTimeout(showNotif, Math.random() * 7000);
+      }, 12000);
+    }
+
+    // ---------- QUIZ: valinnat ----------
+    document.querySelectorAll('#question1 .option-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#question1 .option-btn').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedQ1 = this.dataset.value;
+      });
+    });
+
+    document.querySelectorAll('#question2 .option-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#question2 .option-btn').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedQ2 = this.dataset.value;
+      });
+    });
+
+    // ---------- SUBMIT QUIZ ----------
+    submitBtn.addEventListener('click', function() {
+      if (!selectedQ1 || !selectedQ2) {
+        alert('Vastaa molempiin kysymyksiin nähdäksesi tulokset');
+        return;
+      }
+      
+      // Piilota quiz, näytä tulokset
+      quizContainer.style.display = 'none';
+      resultsContainer.style.display = 'block';
+      
+      // Pieni viive, sitten starttaa counter
+      startLiveCounter();
+    });
+
+    // ---------- CTA vie tarjoukseen ----------
+    finalCta.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = OFFER_URL;
+    });
+
+    // ---------- KÄYNNISTETÄÄN ANIMAATIOT ----------
+    animateStats();
+    startNotifications();
+
+    // ---------- Varmistetaan ettei results näy vahingossa alussa ----------
+    resultsContainer.style.display = 'none';
+
+    // ---------- LISÄÄ BOT-SUOJAUS (esim. jos käyttäjä yrittää inspect) ----------
+    document.addEventListener('contextmenu', e => e.preventDefault());  // estä oikea klikkaus (ei pakollinen)
+  })();
 </script>
+
+<!-- Korvaa kuvien URL-osoitteet omillasi: 
+  https://i.imgur.com/PLACEHOLDER1.jpg -> ensimmäinen bikini-kuva
+  https://i.imgur.com/PLACEHOLDER2.jpg -> toinen kuva (pieni preview)
+  https://i.imgur.com/PLACEHOLDER3.jpg, 4, 5 -> kolme pientä profiilikuvaa (voit toistaa samoja)
+-->
 </body>
 </html>
