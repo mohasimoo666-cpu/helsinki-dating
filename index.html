@@ -27,7 +27,7 @@
       background: #1a1a1a;
     }
 
-    /* صورة خلفية واقعية (سيلفي عادي في البيت) */
+    /* صورة خلفية واقعية (سيلفي عادي في البيت) - بدون فلتر داكن */
     .bg-image {
       position: absolute;
       top: 0;
@@ -35,17 +35,18 @@
       width: 100%;
       height: 100%;
       background: url('https://i.postimg.cc/Bv6Pyx0K/sssssss.jpg') center center / cover no-repeat;
-      filter: brightness(0.8);
+      /* أزلنا filter brightness completely */
       z-index: 1;
     }
 
+    /* طبقة التدرج أصبحت أفتح بكثير */
     .overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
+      background: linear-gradient(0deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 100%);
       z-index: 2;
     }
 
@@ -148,7 +149,7 @@
       text-align: center;
     }
 
-    /* إشعار وهمي (يظهر من تحت) */
+    /* إشعار وهمي (يظهر من تحت) - تم تفتيح النص */
     .fake-notif {
       position: absolute;
       bottom: 20px;
@@ -180,6 +181,15 @@
       align-items: center;
       justify-content: center;
       font-size: 1.6rem;
+      color: white; /* لون الإيموجي */
+    }
+
+    /* ضمان أن كل النصوص في الإشعار بيضاء */
+    .fake-notif div, 
+    .fake-notif div div,
+    #notifName,
+    #notifAction {
+      color: white !important;
     }
 
     /* شارات ثقة صغيرة */
@@ -197,11 +207,13 @@
       border-radius: 30px;
       font-size: 0.6rem;
       border: 1px solid rgba(255,255,255,0.2);
+      color: white; /* لون نص الشارات */
     }
   </style>
 </head>
 <body>
 <div class="screen">
+  <!-- الصورة بدون فلتر داكن -->
   <div class="bg-image"></div>
   <div class="overlay"></div>
 
@@ -287,4 +299,3 @@
 </script>
 </body>
 </html>
-
