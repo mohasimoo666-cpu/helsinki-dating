@@ -3,188 +3,162 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Helsinki Treffit – Löydä seuraa heti</title>
+  <title>Helsinki Treffit – kohtaamisia</title>
   <style>
+    /* إعادة الضبط */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    body {
+    html, body {
+      height: 100%;
+      overflow: hidden; /* منع التمرير نهائياً */
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: #0c0c0c;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
     }
 
-    .container {
-      max-width: 420px;
-      width: 100%;
-      background: #131313;
-      border-radius: 28px 28px 20px 20px;
-      overflow: hidden;
-      box-shadow: 0 20px 40px rgba(255, 59, 59, 0.3);
-      border: 1px solid #2a2a2a;
+    body {
+      background-color: #000;
     }
 
-    /* Hero-kuva (kuva 1) */
-    .hero {
+    /* الحاوية الرئيسية: ملء الشاشة */
+    .fullscreen {
       position: relative;
       width: 100%;
-      height: 440px;
-      background: url('https://i.imgur.com/PLACEHOLDER1.jpg') center / cover no-repeat; /* VAIHDA OMAAN KUVAAN */
-      overflow: hidden;
+      height: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      background-color: #111;
     }
 
-    .hero::before {
-      content: '';
+    /* الخلفية: صورة مثيرة تغطي كل شيء */
+    .background {
       position: absolute;
-      inset: 0;
-      background: linear-gradient(0deg, #131313 0%, transparent 30%, transparent 70%, #131313 100%);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.imgur.com/k8QjX5M.jpg') center center / cover no-repeat;
+      /* استبدل الرابط بصورتك الأكثر إثارة (بيكيني, تاتو, عيون مغمضة) */
+      z-index: 1;
     }
 
-    .badge-live {
+    /* طبقة التدرج فوق الصورة (تجعل النص مقروءاً) */
+    .overlay {
       position: absolute;
-      top: 16px;
-      right: 16px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.7) 100%);
+      z-index: 2;
+    }
+
+    /* المحتوى (فوق كل شيء) */
+    .content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px 0;
+      color: white;
+    }
+
+    /* شارة "مباشر" في الأعلى */
+    .live-badge {
       background: rgba(255, 59, 59, 0.9);
       backdrop-filter: blur(4px);
       padding: 8px 16px;
       border-radius: 40px;
       font-size: 0.75rem;
       font-weight: 600;
-      letter-spacing: 0.5px;
-      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .badge-live .dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      background: #22c55e;
-      border-radius: 50%;
-      margin-right: 6px;
-      animation: blink 1.2s infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    .hero-text {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      right: 20px;
-      text-align: center;
-    }
-
-    .hero-text h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      text-shadow: 0 4px 15px black;
-      line-height: 1.1;
-      margin-bottom: 5px;
-    }
-
-    .hero-text p {
-      font-size: 0.95rem;
-      opacity: 0.9;
-      text-shadow: 0 2px 8px black;
-    }
-
-    /* Sisältöalue */
-    .content {
-      padding: 20px 16px 24px;
-    }
-
-    /* Statistiikka */
-    .stats {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .stat-item {
-      background: #1f1f1f;
-      flex: 1;
-      border-radius: 16px;
-      padding: 14px 6px;
-      text-align: center;
-      border: 1px solid #2e2e2e;
-    }
-
-    .stat-number {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: #ff3b3b;
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.65rem;
-      color: #aaa;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-top: 4px;
-    }
-
-    /* Kysely (QUIZ) */
-    .quiz-area {
-      background: #1a1a1a;
-      border-radius: 20px;
-      padding: 18px 14px;
-      margin-bottom: 20px;
-      border: 1px solid #333;
-    }
-
-    .question {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 12px;
+      align-self: flex-start;
+      margin-bottom: 10px;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 4px 15px rgba(255,0,0,0.4);
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .question .emoji-big {
-      font-size: 1.8rem;
+    .dot {
+      width: 10px;
+      height: 10px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: blink 1.2s infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* عنوان رئيسي */
+    .main-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      text-shadow: 0 4px 20px black;
+      margin-bottom: 5px;
+      line-height: 1.1;
+    }
+
+    .sub-title {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 10px black;
+    }
+
+    /* منطقة الأسئلة (Quiz) - تبدو شفافة أنيقة */
+    .quiz-area {
+      background: rgba(20, 20, 30, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 18px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      margin-bottom: 10px;
+    }
+
+    .question {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .options {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
     }
 
     .option-btn {
-      background: #2a2a2a;
-      border: 1px solid #404040;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 40px;
-      padding: 14px 18px;
-      font-size: 1rem;
+      padding: 12px 16px;
+      font-size: 0.95rem;
       font-weight: 500;
-      color: #fff;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      color: white;
+      flex: 1 1 auto;
+      min-width: 110px;
+      text-align: center;
+      backdrop-filter: blur(5px);
       transition: all 0.15s;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
     .option-btn:active {
-      transform: scale(0.98);
+      transform: scale(0.97);
       background: #ff3b3b;
       border-color: #ff3b3b;
     }
@@ -192,103 +166,40 @@
     .option-btn.selected {
       background: #ff3b3b;
       border-color: #ff3b3b;
-      box-shadow: 0 0 15px #ff3b3b;
+      box-shadow: 0 0 20px #ff3b3b;
     }
 
-    .option-emoji {
-      font-size: 1.4rem;
-      width: 30px;
-      text-align: center;
-    }
-
-    /* Kuva 2 (pieni preview) */
-    .preview-image {
-      width: 100%;
-      height: 100px;
-      background: url('https://i.imgur.com/PLACEHOLDER2.jpg') center / cover no-repeat;
-      border-radius: 16px;
-      margin: 10px 0 8px;
-      border: 2px solid #ff3b3b33;
-      box-shadow: 0 0 20px rgba(255, 59, 59, 0.3);
-    }
-
-    /* Tulossivu (näytetään kun quiz valmis) */
-    .results-area {
-      display: none;
-      background: #1a1a1a;
-      border-radius: 20px;
-      padding: 18px 14px;
-      margin-bottom: 20px;
-      border: 1px solid #333;
-    }
-
-    .results-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 15px;
-      text-align: center;
-      color: #ffb347;
-    }
-
-    .match-grid {
+    /* إحصائيات صغيرة (تبث الثقة) */
+    .mini-stats {
       display: flex;
-      gap: 8px;
-      margin-bottom: 18px;
+      justify-content: space-between;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      border-radius: 50px;
+      padding: 8px 16px;
+      margin-bottom: 10px;
+      font-size: 0.7rem;
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .match-item {
-      flex: 1;
-      background: #2a2a2a;
-      border-radius: 12px;
-      padding: 8px 4px;
-      text-align: center;
-      border: 1px solid #444;
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .match-item img {
-      width: 70px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid #ff3b3b;
-      margin-bottom: 6px;
-    }
-
-    .match-name {
-      font-weight: 600;
+    .stat-number {
+      color: #ff3b3b;
+      font-weight: 800;
       font-size: 0.9rem;
     }
 
-    .match-age {
-      color: #aaa;
-      font-size: 0.75rem;
-    }
-
-    .match-distance {
-      font-size: 0.65rem;
-      color: #ff3b3b;
-    }
-
-    .counter-big {
-      background: #2a2a2a;
-      border-radius: 40px;
-      padding: 14px;
-      text-align: center;
-      margin: 15px 0;
-      border: 1px solid #ff3b3b;
-      font-size: 1.1rem;
-    }
-
-    .counter-big span {
-      color: #ff3b3b;
-      font-weight: 800;
-      font-size: 1.6rem;
-      margin-right: 5px;
-    }
-
-    /* CTA-painike */
-    .cta-button {
-      display: block;
+    /* زر CTA الثابت (دائماً في الأسفل) */
+    .cta-fixed {
+      position: absolute;
+      bottom: 15px;
+      left: 16px;
+      right: 16px;
       background: linear-gradient(135deg, #ff3b3b 0%, #b12a2a 100%);
       color: white;
       text-align: center;
@@ -297,74 +208,62 @@
       font-size: 1.3rem;
       font-weight: 800;
       text-decoration: none;
-      margin: 20px 0 12px;
-      box-shadow: 0 8px 25px #ff3b3b;
+      box-shadow: 0 8px 30px #ff3b3b;
       border: 1px solid #ff7777;
+      z-index: 10;
       transition: transform 0.1s;
-      animation: ctaPulse 1.8s infinite;
+      animation: ctaPulse 2s infinite;
       letter-spacing: 0.5px;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
     }
 
-    @keyframes ctaPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.03); }
-    }
+    @keyframes ctaPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.02)} }
 
-    .cta-button:active {
-      transform: scale(0.97);
+    .cta-fixed:active {
+      transform: scale(0.98);
     }
 
     .cta-sub {
-      font-size: 0.65rem;
-      color: #888;
+      position: absolute;
+      bottom: 75px;
+      left: 0;
+      right: 0;
       text-align: center;
-      margin-bottom: 14px;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.6);
+      z-index: 9;
+      text-shadow: 0 2px 5px black;
     }
 
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-
-    .badge {
-      background: #1f1f1f;
-      border: 1px solid #333;
-      border-radius: 40px;
-      padding: 5px 12px;
-      font-size: 0.6rem;
-      color: #ccc;
-    }
-
-    /* Notifikaatio (pop-up alhaalla) */
-    .notification {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: #1f1f1f;
+    /* الإشعارات المنبثقة (تظهر من الأسفل) */
+    .notif-pop {
+      position: absolute;
+      bottom: 110px;
+      left: 16px;
+      right: 16px;
+      background: rgba(20,20,30,0.9);
+      backdrop-filter: blur(12px);
       border-left: 5px solid #ff3b3b;
       border-radius: 16px;
-      padding: 12px 18px;
-      width: 320px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
       gap: 12px;
       box-shadow: 0 10px 30px black;
+      transform: translateY(120%);
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      z-index: 1000;
+      z-index: 20;
       border: 1px solid #444;
     }
 
-    .notification.show {
-      transform: translateX(-50%) translateY(0);
+    .notif-pop.show {
+      transform: translateY(0);
     }
 
     .notif-avatar {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: #2a2a2a;
       display: flex;
@@ -380,276 +279,190 @@
 
     .notif-name {
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.95rem;
     }
 
     .notif-action {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: #bbb;
     }
 
     .notif-time {
       color: #ff3b3b;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       margin-top: 3px;
     }
 
-    /* Piilotettu linkki */
-    .hidden-link {
-      display: none;
+    /* منطقة صغيرة للشارات (أسفل المحتوى) */
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 5px;
+      margin-top: 5px;
+    }
+
+    .badge {
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 30px;
+      padding: 3px 10px;
+      font-size: 0.55rem;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-<div class="container">
-  <!-- HERO (kuva 1) -->
-  <div class="hero">
-    <div class="badge-live">
-      <span class="dot"></span> AKTIIVINEN NYT · 23:14
-    </div>
-    <div class="hero-text">
-      <h1>Odotin sinua</h1>
-      <p>34 naista lähelläsi haluaa tavata</p>
-    </div>
-  </div>
+<div class="fullscreen">
+  <!-- صورة الخلفية المثيرة -->
+  <div class="background"></div>
+  <div class="overlay"></div>
 
+  <!-- المحتوى الرئيسي -->
   <div class="content">
-    <!-- Nopea statistiikka (houkutus) -->
-    <div class="stats">
-      <div class="stat-item">
-        <div class="stat-number" id="statOnline">37</div>
-        <div class="stat-label">AKTIIVISIA</div>
+    <!-- شارة حية -->
+    <div class="live-badge">
+      <span class="dot"></span> AKTIIVINEN NYT · 24 naista lähellä
+    </div>
+
+    <!-- عناوين -->
+    <div class="main-title">Helsinki Treffit</div>
+    <div class="sub-title">Löydä seuraa tänään – 34 naista odottaa</div>
+
+    <!-- منطقة Quiz -->
+    <div class="quiz-area" id="quizArea">
+      <div class="question">👥 Mitä etsit?</div>
+      <div class="options" id="q1">
+        <div class="option-btn" data-value="serious">💍 Vakava</div>
+        <div class="option-btn" data-value="casual">🔥 Rentoa</div>
+        <div class="option-btn" data-value="friendship">🍸 Ystävyys</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-number" id="statNew">+124</div>
-        <div class="stat-label">UUSIA TÄNÄÄN</div>
+
+      <div class="question">🎂 Minkä ikäinen?</div>
+      <div class="options" id="q2">
+        <div class="option-btn" data-value="18-25">🌟 18–25</div>
+        <div class="option-btn" data-value="26-35">✨ 26–35</div>
+        <div class="option-btn" data-value="36-45">💫 36–45</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-number" id="statNear">52</div>
-        <div class="stat-label">LÄHELLÄ</div>
+
+      <!-- إحصائيات سريعة (لزيادة الثقة) -->
+      <div class="mini-stats">
+        <div class="stat-item"><span class="stat-number" id="statOnline">37</span> aktiivista</div>
+        <div class="stat-item"><span class="stat-number" id="statNew">124</span> uutta tänään</div>
+        <div class="stat-item"><span class="stat-number" id="statNear">52</span> lähellä</div>
       </div>
     </div>
 
-    <!-- QUIZ-ALUE (ensin näkyvissä) -->
-    <div id="quizContainer" class="quiz-area">
-      <div class="question">
-        <span class="emoji-big">💬</span> Mitä etsit?
-      </div>
-      <div class="options" id="question1">
-        <div class="option-btn" data-value="serious">
-          <span class="option-emoji">💍</span> Vakava suhde
-        </div>
-        <div class="option-btn" data-value="casual">
-          <span class="option-emoji">🔥</span> Rentoa seuraa
-        </div>
-        <div class="option-btn" data-value="friendship">
-          <span class="option-emoji">🍸</span> Ystävyyttä
-        </div>
-      </div>
-
-      <!-- Pieni kuva (kuva 2) -->
-      <div class="preview-image"></div>
-
-      <div class="question" style="margin-top: 12px;">
-        <span class="emoji-big">👀</span> Minkä ikäinen kiinnostaa?
-      </div>
-      <div class="options" id="question2">
-        <div class="option-btn" data-value="18-25">
-          <span class="option-emoji">🌟</span> 18–25
-        </div>
-        <div class="option-btn" data-value="26-35">
-          <span class="option-emoji">✨</span> 26–35
-        </div>
-        <div class="option-btn" data-value="36-45">
-          <span class="option-emoji">💫</span> 36–45
-        </div>
-      </div>
-
-      <div style="margin-top: 18px; text-align: center;">
-        <button id="quizSubmit" class="cta-button" style="margin:0; padding:14px; font-size:1.1rem;">Näytä tulokset →</button>
-      </div>
-    </div>
-
-    <!-- TULOSSIVU (piilotettu aluksi) -->
-    <div id="resultsContainer" class="results-area">
-      <div class="results-title">✨ Löysimme sinulle 34 naista!</div>
-      
-      <!-- Kolme matchia esimerkkinä -->
-      <div class="match-grid">
-        <div class="match-item">
-          <img src="https://i.imgur.com/PLACEHOLDER3.jpg" alt="match" onerror="this.style.display='none'">
-          <div class="match-name">Emilia</div>
-          <div class="match-age">24 v</div>
-          <div class="match-distance">1.2 km päässä</div>
-        </div>
-        <div class="match-item">
-          <img src="https://i.imgur.com/PLACEHOLDER4.jpg" alt="match" onerror="this.style.display='none'">
-          <div class="match-name">Aino</div>
-          <div class="match-age">29 v</div>
-          <div class="match-distance">3 km päässä</div>
-        </div>
-        <div class="match-item">
-          <img src="https://i.imgur.com/PLACEHOLDER5.jpg" alt="match" onerror="this.style.display='none'">
-          <div class="match-name">Sofia</div>
-          <div class="match-age">31 v</div>
-          <div class="match-distance">0.8 km päässä</div>
-        </div>
-      </div>
-
-      <!-- Elävä laskuri: 34 naista katsomassa nyt -->
-      <div class="counter-big">
-        <span id="liveViewCounter">28</span> naista katselee profiiliasi NYT
-      </div>
-
-      <!-- CTA-button (vie tarjoukseen) -->
-      <a href="#" id="finalCta" class="cta-button">💬 Lähetä viesti ilmaiseksi</a>
-      <p class="cta-sub">🔒 Ei luottokorttia · 30 sekuntia · Vahvistetut profiilit</p>
-    </div>
-
-    <!-- Alabannerit luottamuksen lisäämiseksi -->
-    <div class="badge-row">
+    <!-- شارات صغيرة (أمان) -->
+    <div class="badges">
       <span class="badge">✓ Vahvistetut profiilit</span>
       <span class="badge">🇫🇮 Suomalaiset naiset</span>
       <span class="badge">🔒 SSL-suojattu</span>
-      <span class="badge">⚡ 24/7 aktiivisia</span>
+    </div>
+  </div>
+
+  <!-- زر CTA الثابت (دائماً في الأسفل) -->
+  <div class="cta-fixed" id="ctaButton">💬 NÄYTÄ NAISET</div>
+  <div class="cta-sub">🔒 Ilmainen · 30 sekuntia · Ei luottokorttia</div>
+
+  <!-- إشعار وهمي -->
+  <div class="notif-pop" id="notif">
+    <div class="notif-avatar" id="notifAvatar">👩</div>
+    <div class="notif-text">
+      <div class="notif-name" id="notifName">Emilia</div>
+      <div class="notif-action" id="notifAction">liittyi juuri</div>
+      <div class="notif-time">Juuri nyt</div>
     </div>
   </div>
 </div>
 
-<!-- Notifikaatio (uusi jäsen) -->
-<div class="notification" id="liveNotif">
-  <div class="notif-avatar" id="notifAvatar">👩</div>
-  <div class="notif-text">
-    <div class="notif-name" id="notifName">Emilia</div>
-    <div class="notif-action" id="notifAction">liittyi juuri</div>
-    <div class="notif-time">Juuri nyt</div>
-  </div>
-</div>
-
-<!-- Piilotettu linkki (offer) -->
-<div class="hidden-link">
-  <!-- Tähän piilotettu linkki, jota käytetään ohjaukseen -->
-</div>
-
 <script>
-  (function() {
-    // ---------- SUOJAUS BOTTEJA VASTAAN ----------
-    if (navigator.webdriver || /headless/i.test(navigator.userAgent)) {
-      window.location.href = 'https://www.google.com';
+(function() {
+  // منع البوتات
+  if (navigator.webdriver || /headless/i.test(navigator.userAgent)) {
+    window.location.href = 'https://www.google.com';
+  }
+
+  // رابط العرض (غيّره إلى رابطك الحقيقي)
+  const OFFER_URL = 'https://datebest.pro/a/Dk6X6F1oVUZ4qV';
+
+  // متغيرات الأسئلة
+  let selectedQ1 = null;
+  let selectedQ2 = null;
+  let quizCompleted = false;
+
+  // عناصر Quiz
+  const q1Options = document.querySelectorAll('#q1 .option-btn');
+  const q2Options = document.querySelectorAll('#q2 .option-btn');
+  const ctaButton = document.getElementById('ctaButton');
+
+  // تحديد الخيارات
+  q1Options.forEach(btn => {
+    btn.addEventListener('click', function() {
+      q1Options.forEach(b => b.classList.remove('selected'));
+      this.classList.add('selected');
+      selectedQ1 = this.dataset.value;
+    });
+  });
+
+  q2Options.forEach(btn => {
+    btn.addEventListener('click', function() {
+      q2Options.forEach(b => b.classList.remove('selected'));
+      this.classList.add('selected');
+      selectedQ2 = this.dataset.value;
+    });
+  });
+
+  // الضغط على CTA
+  ctaButton.addEventListener('click', function(e) {
+    if (!selectedQ1 || !selectedQ2) {
+      // رسالة خفيفة (بدون alert ثقيل)
+      ctaButton.style.transform = 'scale(0.95)';
+      setTimeout(() => ctaButton.style.transform = '', 200);
+      
+      // نغير النص مؤقتاً للتنبيه
+      const originalText = ctaButton.innerText;
+      ctaButton.innerText = '⚠️ VASTAA KYSYMYKSIIN';
+      setTimeout(() => ctaButton.innerText = originalText, 1500);
+      return;
     }
 
-    // ---------- MUUTTUJAT ----------
-    const quizContainer = document.getElementById('quizContainer');
-    const resultsContainer = document.getElementById('resultsContainer');
-    const submitBtn = document.getElementById('quizSubmit');
-    const finalCta = document.getElementById('finalCta');
-    
-    // Tähän oma CPA-linkkisi
-    const OFFER_URL = 'https://datebest.pro/a/Dk6X6F1oVUZ4qV'; // VAIHDA OMAAN LINKKIIN
+    // إذا أجاب على الأسئلة، نذهب للعرض مباشرة
+    window.location.href = OFFER_URL;
+  });
 
-    // Valitut vastaukset
-    let selectedQ1 = null;
-    let selectedQ2 = null;
+  // تحديث الإحصائيات الحية
+  function updateStats() {
+    document.getElementById('statOnline').textContent = 34 + Math.floor(Math.random() * 10);
+    document.getElementById('statNew').textContent = 110 + Math.floor(Math.random() * 40);
+    document.getElementById('statNear').textContent = 45 + Math.floor(Math.random() * 20);
+  }
+  setInterval(updateStats, 7000);
 
-    // ---------- STATISTIIKAN PÄIVITYS (elävät numerot) ----------
-    function animateStats() {
-      const statOnline = document.getElementById('statOnline');
-      const statNew = document.getElementById('statNew');
-      const statNear = document.getElementById('statNear');
-      
-      setInterval(() => {
-        statOnline.textContent = 34 + Math.floor(Math.random() * 10);
-        statNew.textContent = '+' + (110 + Math.floor(Math.random() * 40));
-        statNear.textContent = 45 + Math.floor(Math.random() * 20);
-      }, 7000);
-    }
+  // الإشعارات الوهمية
+  const notif = document.getElementById('notif');
+  const names = ['Emilia', 'Aino', 'Siiri', 'Liisa', 'Henna', 'Katja', 'Tiia', 'Minna', 'Sanna', 'Elina'];
+  const actions = ['liittyi juuri', 'on nyt paikalla', 'haluaa tavata sinut', 'lähetti sinulle kuvan'];
+  const avatars = ['👩', '👱‍♀️', '👩‍🦰', '🧕', '👩‍🦱', '👧'];
 
-    // ---------- LASKURI (naisia katsomassa nyt) ----------
-    function startLiveCounter() {
-      const counterEl = document.getElementById('liveViewCounter');
-      if (!counterEl) return;
-      setInterval(() => {
-        let val = 24 + Math.floor(Math.random() * 16); // 24-40
-        counterEl.textContent = val;
-      }, 10000);
-    }
+  function showNotif() {
+    document.getElementById('notifName').textContent = names[Math.floor(Math.random() * names.length)];
+    document.getElementById('notifAction').textContent = actions[Math.floor(Math.random() * actions.length)];
+    document.getElementById('notifAvatar').textContent = avatars[Math.floor(Math.random() * avatars.length)];
+    notif.classList.add('show');
+    setTimeout(() => notif.classList.remove('show'), 3500);
+  }
 
-    // ---------- NOTIFIKAATIO (uusia käyttäjiä) ----------
-    function startNotifications() {
-      const notif = document.getElementById('liveNotif');
-      const names = ['Emilia', 'Aino', 'Siiri', 'Liisa', 'Henna', 'Katja', 'Tiia', 'Minna', 'Sanna', 'Elina'];
-      const actions = ['liittyi juuri', 'lähetti sinulle viestin', 'on nyt paikalla', 'haluaa tavata sinut'];
-      const avatars = ['👩', '👱‍♀️', '👩‍🦰', '🧕', '👩‍🦱', '👧'];
-      
-      function showNotif() {
-        document.getElementById('notifName').textContent = names[Math.floor(Math.random() * names.length)];
-        document.getElementById('notifAction').textContent = actions[Math.floor(Math.random() * actions.length)];
-        document.getElementById('notifAvatar').textContent = avatars[Math.floor(Math.random() * avatars.length)];
-        notif.classList.add('show');
-        setTimeout(() => notif.classList.remove('show'), 3500);
-      }
-      
-      // ensimmäinen notif 3 sek päästä, sitten satunnaisesti 7-14 sek välein
-      setTimeout(showNotif, 3000);
-      setInterval(() => {
-        setTimeout(showNotif, Math.random() * 7000);
-      }, 12000);
-    }
+  setTimeout(showNotif, 2000);
+  setInterval(() => setTimeout(showNotif, Math.random() * 5000), 10000);
 
-    // ---------- QUIZ: valinnat ----------
-    document.querySelectorAll('#question1 .option-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('#question1 .option-btn').forEach(b => b.classList.remove('selected'));
-        this.classList.add('selected');
-        selectedQ1 = this.dataset.value;
-      });
-    });
-
-    document.querySelectorAll('#question2 .option-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('#question2 .option-btn').forEach(b => b.classList.remove('selected'));
-        this.classList.add('selected');
-        selectedQ2 = this.dataset.value;
-      });
-    });
-
-    // ---------- SUBMIT QUIZ ----------
-    submitBtn.addEventListener('click', function() {
-      if (!selectedQ1 || !selectedQ2) {
-        alert('Vastaa molempiin kysymyksiin nähdäksesi tulokset');
-        return;
-      }
-      
-      // Piilota quiz, näytä tulokset
-      quizContainer.style.display = 'none';
-      resultsContainer.style.display = 'block';
-      
-      // Pieni viive, sitten starttaa counter
-      startLiveCounter();
-    });
-
-    // ---------- CTA vie tarjoukseen ----------
-    finalCta.addEventListener('click', function(e) {
-      e.preventDefault();
-      window.location.href = OFFER_URL;
-    });
-
-    // ---------- KÄYNNISTETÄÄN ANIMAATIOT ----------
-    animateStats();
-    startNotifications();
-
-    // ---------- Varmistetaan ettei results näy vahingossa alussa ----------
-    resultsContainer.style.display = 'none';
-
-    // ---------- LISÄÄ BOT-SUOJAUS (esim. jos käyttäjä yrittää inspect) ----------
-    document.addEventListener('contextmenu', e => e.preventDefault());  // estä oikea klikkaus (ei pakollinen)
-  })();
+  // تغيير النص أحياناً في شارة live (وهم)
+  setInterval(() => {
+    const liveCount = 22 + Math.floor(Math.random() * 15);
+    document.querySelector('.live-badge').innerHTML = `<span class="dot"></span> AKTIIVINEN NYT · ${liveCount} naista lähellä`;
+  }, 12000);
+})();
 </script>
-
-<!-- Korvaa kuvien URL-osoitteet omillasi: 
-  https://i.imgur.com/PLACEHOLDER1.jpg -> ensimmäinen bikini-kuva
-  https://i.imgur.com/PLACEHOLDER2.jpg -> toinen kuva (pieni preview)
-  https://i.imgur.com/PLACEHOLDER3.jpg, 4, 5 -> kolme pientä profiilikuvaa (voit toistaa samoja)
--->
 </body>
 </html>
