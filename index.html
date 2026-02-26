@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fi">
+<html lang="no">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Helsinki Treffit</title>
+  <title>Oslo Dates</title>
   <style>
     * {
       margin: 0;
@@ -27,19 +27,17 @@
       background: #1a1a1a;
     }
 
-    /* صورة خلفية واقعية (سيلفي عادي في البيت) - بدون فلتر داكن */
+    /* صورة خلفية واقعية (سيلفي عادي في البيت) */
     .bg-image {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('https://i.postimg.cc/Bv6Pyx0K/sssssss.jpg') center center / cover no-repeat;
-      /* أزلنا filter brightness completely */
+      background: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyHoI45EM65JyN0_Kw4TOOUFCrA3A8FbthKVQ5KCLEfk_TIc2Rx67_CjnNzbNrkebtZhVp-mrB75cnJH04D_vEMTxnnyYIMb26v-CNbzua2_g8s34Ya6IbY3Ds519_ynIt-eFcDSJvYABzPFNYpqaGdO-a7PIRTNhqT1ss1SVAvkyfrncRkKKgBqYy3qbV/s1248/toooooop.webp') center center / cover no-repeat;
       z-index: 1;
     }
 
-    /* طبقة التدرج أصبحت أفتح بكثير */
     .overlay {
       position: absolute;
       top: 0;
@@ -64,7 +62,6 @@
       color: white;
     }
 
-    /* رأس الصفحة */
     .header {
       display: flex;
       justify-content: space-between;
@@ -79,7 +76,6 @@
       font-weight: 600;
     }
 
-    /* معلومات الفتاة */
     .girl-info {
       margin-bottom: 30px;
     }
@@ -116,7 +112,6 @@
       display: inline-block;
     }
 
-    /* زر CTA الضخم (الوحيد) */
     .cta-button {
       background: linear-gradient(135deg, #ff4d4d 0%, #cc0000 100%);
       color: white;
@@ -149,7 +144,6 @@
       text-align: center;
     }
 
-    /* إشعار وهمي (يظهر من تحت) - تم تفتيح النص */
     .fake-notif {
       position: absolute;
       bottom: 20px;
@@ -181,10 +175,9 @@
       align-items: center;
       justify-content: center;
       font-size: 1.6rem;
-      color: white; /* لون الإيموجي */
+      color: white;
     }
 
-    /* ضمان أن كل النصوص في الإشعار بيضاء */
     .fake-notif div, 
     .fake-notif div div,
     #notifName,
@@ -192,7 +185,6 @@
       color: white !important;
     }
 
-    /* شارات ثقة صغيرة */
     .badges {
       display: flex;
       justify-content: center;
@@ -207,77 +199,68 @@
       border-radius: 30px;
       font-size: 0.6rem;
       border: 1px solid rgba(255,255,255,0.2);
-      color: white; /* لون نص الشارات */
+      color: white;
     }
   </style>
 </head>
 <body>
 <div class="screen">
-  <!-- الصورة بدون فلتر داكن -->
   <div class="bg-image"></div>
   <div class="overlay"></div>
 
   <div class="content">
-    <!-- الهيدر -->
     <div class="header">
-      <span>helsinki-treffit.fi</span>
+      <span>oslo-dates.no</span>
       <span class="age-badge">🔞 18+</span>
     </div>
 
-    <!-- معلومات الفتاة (من الصورة) -->
     <div class="girl-info">
       <div>
-        <span class="girl-name">Emilia</span>
-        <span class="girl-age">24</span>
+        <span class="girl-name">Ingrid</span>
+        <span class="girl-age">25</span>
       </div>
-      <div class="girl-location">📍 Kallio, Helsinki</div>
-      <div class="distance">⚡ 1.2 km päässä sinusta</div>
+      <div class="girl-location">📍 Grünerløkka, Oslo</div>
+      <div class="distance">⚡ 0.9 km unna deg</div>
     </div>
 
-    <!-- زر واحد فقط -->
     <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end;">
       <div class="cta-button" id="ctaBtn">
-        👀 NÄYTÄ KUVA
+        👀 SE BILDET
       </div>
-      <div class="cta-sub">🔒 Ilmainen · 30 sekuntia · Ei luottokorttia</div>
+      <div class="cta-sub">🔒 Gratis · 30 sekunder · Ikke kredittkort</div>
       
       <div class="badges">
-        <span class="badge">✓ Vahvistettu</span>
-        <span class="badge">🇫🇮 Suomalainen</span>
-        <span class="badge">🔞 24v</span>
+        <span class="badge">✓ Verifisert</span>
+        <span class="badge">🇳🇴 Norsk</span>
+        <span class="badge">🔞 25 år</span>
       </div>
     </div>
   </div>
 
-  <!-- إشعارات وهمية -->
   <div class="fake-notif" id="notif">
     <div class="notif-avatar" id="notifAvatar">👩</div>
     <div>
-      <div id="notifName" style="font-weight:bold;">Aino</div>
-      <div id="notifAction" style="font-size:0.8rem;">on nyt paikalla · 300m</div>
+      <div id="notifName" style="font-weight:bold;">Emma</div>
+      <div id="notifAction" style="font-size:0.8rem;">er her nå · 250m</div>
     </div>
   </div>
 </div>
 
 <script>
 (function() {
-  // منع البوتات
   if (navigator.webdriver || /headless/i.test(navigator.userAgent)) {
     window.location.href = 'https://www.google.com';
   }
 
-  // رابط العرض (استبدله)
   const OFFER_URL = 'https://datebest.pro/a/Dk6X6F1oVUZ4qV';
 
-  // زر CTA
   document.getElementById('ctaBtn').addEventListener('click', function() {
     window.location.href = OFFER_URL;
   });
 
-  // إشعارات وهمية
   const notif = document.getElementById('notif');
-  const names = ['Aino', 'Siiri', 'Liisa', 'Henna', 'Katja', 'Tiia', 'Minna', 'Sanna', 'Elina'];
-  const actions = ['on nyt paikalla', 'katsoi profiiliasi', 'haluaa tavata sinut', 'on 200m päässä'];
+  const names = ['Emma', 'Nora', 'Sofia', 'Ida', 'Maja', 'Frida', 'Tiril', 'Linnea', 'Hedda'];
+  const actions = ['er her nå', 'så på profilen din', 'vil møte deg', 'er 250m unna'];
 
   function showNotif() {
     document.getElementById('notifName').textContent = names[Math.floor(Math.random() * names.length)];
@@ -290,10 +273,9 @@
   setTimeout(showNotif, 2000);
   setInterval(() => setTimeout(showNotif, Math.random() * 5000), 10000);
 
-  // تغيير المسافة أحياناً
   setInterval(() => {
     const distance = (Math.random() * 3).toFixed(1);
-    document.querySelector('.distance').innerHTML = `⚡ ${distance} km päässä sinusta`;
+    document.querySelector('.distance').innerHTML = `⚡ ${distance} km unna deg`;
   }, 8000);
 })();
 </script>
